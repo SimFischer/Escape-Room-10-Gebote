@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Ein interaktiver Rätselraum für die 5. Klasse zu den Zehn Geboten und dem Doppelgebot der Liebe.">
+  <title>Die Regenbogen-Kapelle – Rätselraum</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="blob blob4"></div>
+<div class="top-actions"><button class="icon-btn" id="resetBtn" title="Von vorne beginnen" aria-label="Spiel zurücksetzen">🔄</button></div>
+<main class="wrap">
+  <section class="screen active" id="screen-intro">
+    <div class="intro-hero" id="introWindowHolder"></div>
+    <div class="title-block"><p class="kicker">Ein Rätselabenteuer für die 5. Klasse</p><h1>Die Regenbogen-Kapelle</h1></div>
+    <p class="story">Willkommen in der Regenbogen-Kapelle! ✨ Ihr großes Fenster ist seit Langem grau und leer. Nur wer sein Wissen aus dem Religionsunterricht einsetzt, kann die zwei fehlenden Teile finden und dem Fenster seine Farben zurückgeben. In jedem Raum gibt es eine <b>Hilfekarte 📖</b> zum Nachschlagen und mindestens ein Minispiel zum Mitmachen!</p>
+    <div class="center"><button class="btn sunshine" id="startBtn">Los geht's 🔑</button></div>
+    <footer class="credits">Themen: Die Zehn Gebote · Das Doppelgebot der Liebe</footer>
+    <noscript><p>Bitte aktiviere JavaScript in deinem Browser, damit du spielen kannst.</p></noscript>
+  </section>
+  <section class="screen" id="screen-game">
+    <div class="map-header">
+      <div class="map-window" id="gameWindowHolder"></div>
+      <nav class="room-nav" id="roomNav" aria-label="Rätselräume">
+        <button class="node active" data-room="1" data-accent="sunshine"><span class="dot">📜</span><span class="label">Zehn Gebote</span></button>
+        <div class="connector" id="conn1"></div>
+        <button class="node locked" data-room="2" data-accent="coral"><span class="dot">🔒</span><span class="label">Liebe</span></button>
+        <div class="connector" id="conn2"></div>
+        <button class="node locked" data-room="final" data-accent="violet"><span class="dot">🔒</span><span class="label">Kapelle</span></button>
+      </nav>
+    </div>
+    <div class="card room-card" id="roomContent"></div>
+  </section>
+  <section class="screen" id="screen-finale">
+    <div class="finale-hero" id="finaleWindowHolder"></div>
+    <div class="title-block"><h1>Die Kapelle erstrahlt! 🎉</h1></div>
+    <div class="message-card">Ihr habt beide Teile gefunden und dem Fenster seine Farben zurückgegeben. Ihr habt gezeigt, dass ihr die Zehn Gebote – ihre Bedeutung, ihren Alltagsbezug und ihre Reihenfolge – genauso gut versteht wie das Doppelgebot der Liebe: Liebt Gott von ganzem Herzen und eure Mitmenschen wie euch selbst – darin stecken alle Zehn Gebote. Klasse gemacht!</div>
+    <div class="cert"><p class="kicker">Urkunde für</p><div class="cert-name" id="certName">___________</div><input type="text" id="nameInput" aria-label="Name auf der Urkunde" placeholder="Trag hier deinen Namen ein" maxlength="30" autocomplete="off"></div>
+    <div class="button-row"><button class="btn mint" id="printBtn">Urkunde drucken 🖨️</button><button class="btn ghost" id="replayBtn">Nochmal spielen 🔄</button></div>
+  </section>
+</main>
+</body>
+</html>
