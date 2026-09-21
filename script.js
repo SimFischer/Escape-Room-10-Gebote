@@ -50,7 +50,14 @@
     {id:'doppel',icon:'🔢',label:'Das Zahlenschloss',flavor:'Ein kleines Schloss mit einer letzten Frage zum Doppelgebot.',steps:[{type:'keypad',prompt:function(){return 'Das Gebot heißt „DOPPELgebot der Liebe“. Aus wie vielen einzelnen Geboten besteht es? Gebt die Zahl ein.';},answer:function(){return 2;},help:'Ein Doppel... besteht aus wie vielen Teilen?'}]}
   ];
 
-  var STORAGE_KEY = 'regenbogen_kapelle_v3';
+  ROOM1_OBJECTS.push({id:'rucksack',icon:'🎒',label:'Der unsichtbare Rucksack',flavor:'Drei Gedanken wiegen schwer. Findet heraus, was entlasten kann, ohne Gefühle wegzuschieben.',steps:[{type:'backpack'}]});
+  ROOM2_OBJECTS.push({id:'bruecke',icon:'🌉',label:'Die Brücke der Nächstenliebe',flavor:'Zwischen euch und der anderen Seite fehlen drei Brückenstücke. Hilfreiche Entscheidungen schließen die Lücken.',steps:[{type:'bridge'}]});
+  ROOM2_OBJECTS.push({id:'werkstatt',icon:'🛠️',label:'Die Versöhnungs-Werkstatt',flavor:'Ein Streit hat das Werkstattfenster zerbrochen. Mit einem fairen Gespräch und einer passenden Handlung könnt ihr es reparieren.',steps:[{type:'workshop'}]});
+  ROOM1_HILFE += '<h4>Zum unsichtbaren Rucksack</h4><p>Neid und Traurigkeit sind Gefühle, keine Fehler. Du darfst dir etwas wünschen, ohne dich oder andere abzuwerten. Freundschaft ist kein Besitz. Vergleichspausen und Gespräche können helfen.</p>';
+  ROOM2_HILFE += '<h4>Brücken der Nächstenliebe</h4><p>Lade ein, ohne zu drängen. Unterstütze andere beim eigenen Lernen. Respektiere Grenzen und bleibe ansprechbar.</p><h4>Die Versöhnungs-Werkstatt</h4><p>Beschreibe, was passiert ist. Sage, wie du dich fühlst und was du brauchst. Übernimm Verantwortung für deine Handlung. Biete eine passende Wiedergutmachung an. Niemand muss sofort verzeihen. Bei Drohungen oder Gewalt helfen vertraute Erwachsene.</p>';
+
+  // Neue Inhalte sollen auch nach einem früheren Spielabschluss offen sein.
+  var STORAGE_KEY = 'regenbogen_kapelle_v4';
   var state = loadState();
   // Laufende Animationen und verzögerte Aufgaben beim Verlassen stoppen.
   var timers = new Set();
@@ -107,14 +114,14 @@
   function launchConfetti(){if(reducedMotion())return;var colors=['#FFC94D','#FF7A93','#4FC3E8','#34D1A6','#9B7EDE'];for(var i=0;i<28;i++)(function(){var c=el('div','confetti');c.style.left=Math.random()*100+'vw';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDuration=(2.2+Math.random()*1.6)+'s';c.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(c);setTimeout(function(){c.remove();},4500);})();}
   function renderRoom(n){
     stopActivities();updateMap();var box=document.getElementById('roomContent');box.className='card room-card room-'+n;box.innerHTML='';
-    if(n===1)buildRoomScene(box,{badge:'Raum 1 · Die Zehn Gebote',intro:'Ihr betretet die Gebotskammer. Vier geheimnisvolle Gegenstände warten darauf, untersucht zu werden – und irgendwo muss es einen Ausgang geben …',objects:ROOM1_OBJECTS,hilfe:ROOM1_HILFE,onComplete:function(){finishRoom(1,'Ihr habt die Bedeutung, den Alltagsbezug und die richtige Reihenfolge der Zehn Gebote gemeistert! Das erste Fenster-Teil erstrahlt in Sonnenfarben.');}});
+    if(n===1)buildRoomScene(box,{badge:'Raum 1 · Die Zehn Gebote',intro:'Ihr betretet die Gebotskammer. Fünf geheimnisvolle Gegenstände warten darauf, untersucht zu werden – darunter ein unsichtbarer Rucksack. Findet den Weg zum Ausgang!',objects:ROOM1_OBJECTS,hilfe:ROOM1_HILFE,onComplete:function(){finishRoom(1,'Ihr habt die Zehn Gebote erkundet und hilfreiche Gedanken für den unsichtbaren Rucksack gefunden! Das erste Fenster-Teil erstrahlt in Sonnenfarben.');}});
     if(n===2)buildRoomScene(box,{badge:'Raum 2 · Das Doppelgebot der Liebe',intro:'Ihr betretet die Kammer der Liebe. Auch hier warten Gegenstände darauf, entdeckt zu werden …',objects:ROOM2_OBJECTS,hilfe:ROOM2_HILFE,onComplete:function(){finishRoom(2,'„Liebe Gott von ganzem Herzen – und deinen Mitmenschen wie dich selbst.“ Genau das ist das Doppelgebot der Liebe: In diesen zwei Sätzen stecken alle Zehn Gebote. Das zweite Fenster-Teil erstrahlt in Herzfarben!');}});
   }
   function buildHotspot(icon,label,status){var tile=el('button','hotspot hotspot-'+status);tile.appendChild(el('div','hotspot-icon',icon));tile.appendChild(el('div','hotspot-label',label));if(status==='done')tile.appendChild(el('div','hotspot-badge hotspot-badge-done','✓'));if(status==='locked'){tile.appendChild(el('div','hotspot-badge hotspot-badge-locked','🔒'));tile.setAttribute('aria-disabled','true');}return tile;}
   function runObjectSteps(container,steps,onAllDone){
     var idx=0,dots=null;if(steps.length>1){dots=el('div','progress-dots');steps.forEach(function(){dots.appendChild(el('span'));});container.appendChild(dots);}var stepBox=el('div');container.appendChild(stepBox);
     function solved(){if(dots)dots.children[idx].classList.add('filled');later(function(){idx++;if(idx>=steps.length)onAllDone();else render();},650);}
-    function render(){stepBox.innerHTML='';var step=steps[idx];if(step.type==='keypad')renderKeypadStep(stepBox,step,solved);else if(step.type==='mc')renderMCStep(stepBox,step,solved);else if(step.type==='assemble')renderAssembleStep(stepBox,step,solved);else if(step.type==='match')renderMatchStep(stepBox,step,solved);else if(step.type==='catch')renderCatchStep(stepBox,step,solved);}
+    function render(){stepBox.innerHTML='';var step=steps[idx];if(step.type==='keypad')renderKeypadStep(stepBox,step,solved);else if(step.type==='mc')renderMCStep(stepBox,step,solved);else if(step.type==='assemble')renderAssembleStep(stepBox,step,solved);else if(step.type==='match')renderMatchStep(stepBox,step,solved);else if(step.type==='catch')renderCatchStep(stepBox,step,solved);else if(['bridge','backpack','workshop'].includes(step.type))window.KapellenSpiele.render(step.type,stepBox,solved);}
     render();
   }
   function buildRoomScene(box,opts){
