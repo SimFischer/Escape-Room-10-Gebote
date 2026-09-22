@@ -6,20 +6,25 @@
   <meta name="description" content="Ein interaktiver Rätselraum für die 5. Klasse zu den Zehn Geboten und dem Doppelgebot der Liebe.">
   <title>Die Regenbogen-Kapelle – Rätselraum</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="adventure.css">
   <script src="minigames.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
+<header class="adventure-header"><span class="adventure-brand"><span aria-hidden="true">✦</span> Die Regenbogen-Kapelle</span><span class="adventure-tag">Ein Abenteuer voller guter Ideen</span></header>
 <div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="blob blob4"></div>
 <div class="top-actions"><button class="icon-btn" id="resetBtn" title="Von vorne beginnen" aria-label="Spiel zurücksetzen">🔄</button></div>
 <main class="wrap">
   <section class="screen active" id="screen-intro">
-    <div class="intro-hero" id="introWindowHolder"></div>
-    <div class="title-block"><p class="kicker">Ein Rätselabenteuer für die 5. Klasse</p><h1>Die Regenbogen-Kapelle</h1></div>
+    <div class="intro-copy">
+    <div class="title-block"><p class="kicker">✦ Euer Rätselabenteuer · Klasse 5</p><h1>Die Regenbogen-<br><span>Kapelle</span></h1></div>
     <p class="story">Willkommen in der Regenbogen-Kapelle! ✨ Ihr großes Fenster ist seit Langem grau und leer. Nur wer sein Wissen aus dem Religionsunterricht einsetzt, kann die zwei fehlenden Teile finden und dem Fenster seine Farben zurückgeben. In jedem Raum gibt es eine <b>Hilfekarte 📖</b> zum Nachschlagen und mindestens ein Minispiel zum Mitmachen!</p>
-    <div class="center"><button class="btn sunshine" id="startBtn">Los geht's 🔑</button></div>
+    <div class="center"><button class="btn sunshine" id="startBtn">Abenteuer starten <span aria-hidden="true">→</span></button></div>
+    <div class="adventure-facts"><span>2 geheimnisvolle Räume</span><span>11 Rätselstationen</span><span>Gemeinsam entdecken</span></div>
     <footer class="credits">Themen: Die Zehn Gebote · Das Doppelgebot der Liebe</footer>
     <noscript><p>Bitte aktiviere JavaScript in deinem Browser, damit du spielen kannst.</p></noscript>
+    </div>
+    <aside class="window-note"><div class="intro-hero" id="introWindowHolder"></div><div><strong>Bringt die Farben zurück!</strong><p>Jeder gelöste Raum lässt euer Fenster leuchten.</p></div></aside>
   </section>
   <section class="screen" id="screen-game">
     <div class="map-header">
