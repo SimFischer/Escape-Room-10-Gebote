@@ -35,7 +35,7 @@
       ],buckets:[{key:'g3',label:'Gebot 3'},{key:'g4',label:'Gebot 4'},{key:'g7',label:'Gebot 7'},{key:'g9',label:'Gebot 9'}],help:'Schaut im alten Buch nach, worum es bei den Geboten geht.'}
     ]},
     {id:'reihenfolge',icon:'🪨',label:'Die Steintafel',flavor:'Die steinerne Tafel ist zerbrochen! Setzt die Gebote in der richtigen Reihenfolge wieder zusammen – von 1 bis 10.',steps:[{type:'assemble',intro:'Tippt die Gebote in der richtigen Reihenfolge an (1 bis 10):',target:ROOM1_ORDER,help:'Schaut im alten Buch nach, welches Gebot welche Nummer hat.'}]},
-    {id:'fangspiel',icon:'🎯',label:'Der Prüfstein',flavor:'Ein alter Prüfstein testet euer Gespür: Welches Verhalten passt zu den Zehn Geboten?',steps:[{type:'catch',intro:'Fangt ein, was zu den Zehn Geboten passt – und lasst den Rest fallen!',good:['Eltern respektieren','Die Wahrheit sagen','Streit friedlich lösen','Versprechen halten','Nichts wegnehmen, was mir nicht gehört','Zufrieden sein mit dem, was ich habe','Sich einen Ruhetag gönnen','Andere nicht beneiden'],bad:['Lügen','Stehlen','Schlagen','Eltern anschreien','Immer mehr haben wollen','Nie zur Ruhe kommen'],target:8,badHint:'Das widerspricht einem der Zehn Gebote – lieber stehen lassen!'}]}
+    {id:'bergpruefung',icon:'⛰️',label:'Der Prüfstein',flavor:'Hoch über den Wolken warten zwei leere Steintafeln. Erkennt die zehn Gebote und graviert sie ein – ohne auf verfälschte Aussagen hereinzufallen.',steps:[{type:'catch'}]}
   ];
   var ROOM2_HILFE = '<h4>Das wichtigste Gebot</h4><p>Ein Gesetzeslehrer fragte Jesus: „Welches ist das wichtigste Gebot im Gesetz Gottes?“</p><p>Jesus antwortete: „Du sollst den Herrn, deinen Gott, lieben von ganzem Herzen, mit ganzer Hingabe und mit deinem ganzen Verstand. Das ist das erste und wichtigste Gebot. Ebenso wichtig ist aber ein zweites: Liebe deinen Mitmenschen wie dich selbst.“</p><p>Jesus sagte dazu: Alle anderen Gebote – auch die Zehn Gebote – stecken in diesen beiden Sätzen.</p>';
   var ROOM2_OBJECTS = [
@@ -60,10 +60,11 @@
   var STORAGE_KEY = 'regenbogen_kapelle_v5';
   var state = loadState();
   // Laufende Animationen und verzögerte Aufgaben beim Verlassen stoppen.
+  var activeTrialCleanup=null;
   var timers = new Set();
   var intervals = new Set();
   function later(fn, ms) { var id = setTimeout(function(){timers.delete(id);fn();},ms);timers.add(id);return id; }
-  function stopActivities(){timers.forEach(clearTimeout);timers.clear();intervals.forEach(clearInterval);intervals.clear();document.body.classList.remove('hit-good','hit-bad');}
+  function stopActivities(){if(activeTrialCleanup){activeTrialCleanup();activeTrialCleanup=null;}timers.forEach(clearTimeout);timers.clear();intervals.forEach(clearInterval);intervals.clear();document.body.classList.remove('hit-good','hit-bad');}
   function emptyState(){return {room1:false,room2:false,solved:{}};}
   function loadState(){
     var next=emptyState();
@@ -156,45 +157,6 @@
     function tryPlace(key){if(!selected){hint.textContent='Tippt zuerst eine Aussage an.';return;}var card=cards.find(function(x){return x.el===selected;});if(!card)return;if(card.data.bucket===key){card.el.classList.remove('selected');card.el.classList.add('placed');card.el.disabled=true;bucketEls[key].list.appendChild(el('div','bucket-item','✓ '+card.data.t));selected=null;placed++;hint.textContent='';if(placed===step.statements.length)onSolved();}else{shake(bucketEls[key].el);hint.textContent=step.help;}}
     step.buckets.forEach(function(bd){bucketEls[bd.key].el.addEventListener('click',function(){tryPlace(bd.key);});bucketEls[bd.key].el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tryPlace(bd.key);}});});
   }
-  function renderCatchStep(container,step,onSolved){
-    container.appendChild(el('p','',step.intro));
-    container.appendChild(el('p','catch-rules','Richtig: +1 Punkt · Falsch: −1 Punkt (mindestens 0). Sammelt '+step.target+' Punkte!'));
-    var score=el('div','catch-score','Gefangen: 0 / '+step.target);score.setAttribute('aria-live','polite');container.appendChild(score);
-    var hint=makeHint(),caught=0,finished=false,spawnTimer=null,flashTimer=null;
-    function feedback(good){
-      clearTimeout(flashTimer);timers.delete(flashTimer);
-      document.body.classList.remove('hit-good','hit-bad');document.body.classList.add(good?'hit-good':'hit-bad');
-      flashTimer=later(function(){document.body.classList.remove('hit-good','hit-bad');},420);
-      score.classList.toggle('score-good',good);score.classList.toggle('score-bad',!good);
-    }
-    function handleWord(good,chip,staticMode){
-      if(finished||chip.disabled)return;
-      chip.disabled=true;
-      caught=good?caught+1:Math.max(0,caught-1);
-      score.textContent='Gefangen: '+caught+' / '+step.target;
-      hint.textContent=good?'✓ +1 Punkt – das passt zu den Zehn Geboten!':'✕ −1 Punkt (mindestens 0). '+step.badHint;
-      feedback(good);
-      if(caught>=step.target){finished=true;clearInterval(spawnTimer);intervals.delete(spawnTimer);hint.textContent='✓ Geschafft! Ihr habt '+step.target+' Punkte gesammelt.';later(onSolved,700);}
-      chip.classList.add(good?'catch-caught':'catch-wrong');
-      later(function(){if(staticMode){chip.classList.remove('catch-caught','catch-wrong');chip.disabled=finished;}else chip.remove();},450);
-    }
-    if(reducedMotion()){
-      container.appendChild(el('p','catch-rules','Ruhiger Modus: Tippt passende Begriffe an. Nach einem kurzen Moment könnt ihr sie erneut auswählen.'));
-      var pool=el('div','catch-static-pool');
-      shuffle(step.good.map(function(w){return {w:w,good:true};}).concat(step.bad.map(function(w){return {w:w,good:false};}))).forEach(function(item){
-        var chip=el('button','catch-chip',item.w);chip.addEventListener('click',function(){handleWord(item.good,chip,true);});pool.appendChild(chip);
-      });container.appendChild(pool);container.appendChild(hint);
-    }else{
-      var game=el('div','catch-game');container.appendChild(game);container.appendChild(hint);var activeCount=0;
-      spawnTimer=setInterval(function(){
-        if(finished||activeCount>=5)return;
-        var good=Math.random()<.55,list=good?step.good:step.bad,chip=el('button','catch-chip falling',list[Math.floor(Math.random()*list.length)]);
-        chip.style.animationDuration=(4.5+Math.random()*2)+'s';activeCount++;
-        chip.addEventListener('click',function(){if(chip.dataset.done||finished)return;chip.dataset.done='1';activeCount--;handleWord(good,chip,false);});
-        chip.addEventListener('animationend',function(){if(!chip.dataset.done){chip.dataset.done='1';activeCount--;chip.remove();}});
-        game.appendChild(chip);chip.style.left=Math.max(0,Math.random()*(game.clientWidth-chip.offsetWidth))+'px';
-      },850);intervals.add(spawnTimer);
-    }
-  }
+  function renderCatchStep(container,step,onSolved){activeTrialCleanup=window.MountainTrial.render(container,onSolved,{later:later});}
   placeWindow('introWindowHolder');refreshWindow();updateMap();
 })();

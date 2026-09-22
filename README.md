@@ -1,24 +1,29 @@
-# Die Regenbogen-Kapelle – Fortschrittsversion
+# Die Regenbogen-Kapelle – Bergprüfung
 
 ## Bei GitHub aktualisieren
-ZIP entpacken. Alle Dateien sowie den vollständigen Ordner `assets` in das Hauptverzeichnis deines bestehenden Repositorys hochladen. Gleichnamige Dateien ersetzen. Die Pages-Einstellungen und der Klassenlink bleiben gleich.
+ZIP entpacken. Alle Dateien sowie den vollständigen Ordner `assets` in das Hauptverzeichnis deines bestehenden Repositorys hochladen. Gleichnamige Dateien ersetzen. Die Pages-Einstellungen und der Klassenlink bleiben gleich. Nicht nur die ZIP hochladen.
 
 Für ein neues Repository: Settings → Pages → Deploy from a branch → main → /(root) → Save. Anschließend den dort angezeigten Webseitenlink teilen.
 
-## Was neu ist
-- Das große Fenster im Hintergrund ist zunächst zerbrochen und farblos.
-- Erst nach Abschluss aller elf Stationen wechselt die gesamte Kulisse zum reparierten, bunten Fenster.
-- Eine Anzeige zählt die abgeschlossenen Stationen. Jede vollständig gelöste Station wird lokal gespeichert und bleibt nach einem Neuladen erledigt. Angefangene Stationen starten beim erneuten Öffnen von vorn.
-- Keine Urkunde, keine Namenseingabe und keine Druckfunktion mehr.
-- Fangspiel: richtig +1, falsch −1, mindestens 0. Ziel: 8 Punkte. Richtige Treffer färben den Bildschirm kurz grün, falsche rot. Zusätzlich gibt es Text und eine farbige Punkteanzeige.
-- Bei reduzierter Bewegung wird die Bildschirmtönung ausgelassen. Text und Punkteanzeige bleiben erhalten. Im ruhigen Fangspiel können Begriffe nach einer kurzen Pause erneut angeklickt werden, sodass Punktabzüge ausgeglichen werden können.
+## Der neue Prüfstein
+- Eine illustrierte Bergszene mit zwei Steintafeln und Sprechblasen aus dem Himmel.
+- Echte Gebote und heutige Umschreibungen wechseln sich mit verfälschten Aussagen ab.
+- Eine richtige Auswahl graviert ein bisher fehlendes Gebot ein. Ziel: zehn unterschiedliche Gebote.
+- Eine falsche Auswahl entfernt die letzten zwei Gravuren (bei null oder einer Gravur entsprechend weniger). Die entfernten Gebote können wieder gesammelt werden.
+- Richtige Treffer geben grünes, falsche rotes Feedback und eine Erklärung. Bei reduzierter Bewegung entfällt die Bildschirmtönung.
+- Falsche Aussagen vorbeiziehen lassen. Verpasste richtige Aussagen kommen wieder; dafür gibt es keinen Abzug.
+- Nach jeder Aussage bleibt Zeit zum Lesen der Rückmeldung. Mit „Nächste Wolke“ geht es weiter. Pause und „Ohne Zeitdruck spielen“ sind verfügbar.
+- Erst mit „Station abschließen“ wird die erfolgreich bestandene Bergprüfung gespeichert.
+
+## Weiterhin enthalten
+Alle elf Stationen einschließlich Rucksack, Brücke und Versöhnungswerkstatt. Das große Fenster bleibt bis zum Abschluss aller Stationen kaputt und farblos. Danach erscheint es repariert und bunt. Keine Urkunde, Namenseingabe oder Druckfunktion.
 
 ## Dateien
-`index.html`, `styles.css`, `adventure.css`, `script.js`, `minigames.js`, `.nojekyll`, diese Anleitung und `DESIGN.md`.
-Im Ordner `assets` liegen beide erforderlichen Bilder: `kapelle-kaputt.png` und `kapelle.png`. Den Ordner mitsamt beiden Bildern hochladen.
+`index.html`, `styles.css`, `adventure.css`, `mountain.css`, `script.js`, `minigames.js`, `mountain.js`, `.nojekyll`, diese Anleitung und `DESIGN.md`.
+Im Ordner `assets` liegen drei erforderliche Bilder: `kapelle-kaputt.png`, `kapelle.png` und `berg.png`. Alle drei mit hochladen. Kein Build und keine Installation erforderlich.
 
 ## Spielstand
-Die Fortschrittsversion verwendet `regenbogen_kapelle_v5` im lokalen Browser. Sie beginnt beim Wechsel von einer älteren Version neu. Es werden nur Stations- und Raumabschlüsse gespeichert, keine Namen. Über den Zurücksetzen-Knopf kann das Spiel wieder von vorn begonnen werden. Keine Konten oder zentralen Ergebnislisten; alle elf bisherigen Stationen einschließlich der drei zusätzlichen Lernspiele sind enthalten.
+Die Seite speichert abgeschlossene Stationen lokal im jeweiligen Browser unter `regenbogen_kapelle_v5`. Angefangene Stationen starten beim erneuten Öffnen von vorn. Beim Aktualisieren der bisherigen Fortschrittsversion bleiben andere Stationsabschlüsse erhalten; die neue Bergprüfung muss einmal neu bestanden werden. Über den Zurücksetzen-Knopf beginnt das Spiel von vorn. Keine Konten oder zentralen Ergebnislisten.
 
 ## Prüfung
-Die kaputte Startkulisse wurde im Browser geprüft. Automatisch geprüft wurden Punktgewinn, Punktabzug, Untergrenze null, wiederholbare Begriffe im ruhigen Modus, einmaliger Spielabschluss sowie die Abschlussbedingung bei 10 beziehungsweise 11 gelösten Stationen. Der vollständige neue Ablauf bis zum Hintergrundwechsel wurde noch nicht erneut im Browser durchgespielt.
+Die Bergprüfung wurde im Browser bis zu allen zehn Gravuren durchgespielt, einschließlich eines absichtlichen Fehlers mit Abzug von zwei Gravuren, erneutem Sammeln und gespeichertem Stationsabschluss nach Neuladen. Die Smartphoneansicht wurde bei 390 Pixeln Breite geprüft. Automatische Logikprüfungen decken doppelte Einträge, Untergrenze null, Abzug der letzten zwei Einträge und erneutes Vervollständigen ab. Der vollständige Ablauf aller anderen Stationen wurde für diese Änderung nicht erneut durchgespielt.
