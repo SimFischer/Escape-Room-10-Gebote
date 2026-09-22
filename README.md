@@ -1,36 +1,29 @@
-# Die Regenbogen-Kapelle – Bergprüfung
+# Die Regenbogen-Kapelle – Adventure-Version 2
 
-## Bei GitHub aktualisieren
-ZIP entpacken. Alle Dateien sowie den vollständigen Ordner `assets` in das Hauptverzeichnis deines bestehenden Repositorys hochladen. Gleichnamige Dateien ersetzen. Die Pages-Einstellungen und der Klassenlink bleiben gleich. Nicht nur die ZIP hochladen.
+## Auf GitHub aktualisieren
+ZIP entpacken. Den gesamten Inhalt (einschließlich des vollständigen Ordners `assets`) in das Hauptverzeichnis des bestehenden Repositorys hochladen und gleichnamige Dateien ersetzen. Nicht die ZIP selbst hochladen. Die bisherigen GitHub-Pages-Einstellungen und der Klassenlink bleiben gleich.
 
-Für ein neues Repository: Settings → Pages → Deploy from a branch → main → /(root) → Save. Anschließend den dort angezeigten Webseitenlink teilen.
+Bei einem neuen Repository: Settings → Pages → Deploy from a branch → main → /(root) → Save. Den dort angezeigten Webseitenlink mit der Klasse teilen.
 
-## Der neue Prüfstein
-- Eine illustrierte Bergszene mit zwei Steintafeln und Sprechblasen aus dem Himmel.
-- Echte Gebote und heutige Umschreibungen wechseln sich mit verfälschten Aussagen ab.
-- Eine richtige Auswahl graviert ein bisher fehlendes Gebot ein. Ziel: zehn unterschiedliche Gebote.
-- Eine falsche Auswahl entfernt die letzten zwei Gravuren (bei null oder einer Gravur entsprechend weniger). Die entfernten Gebote können wieder gesammelt werden.
-- Richtige Treffer geben grünes, falsche rotes Feedback und eine Erklärung. Bei reduzierter Bewegung entfällt die Bildschirmtönung.
-- Falsche Aussagen vorbeiziehen lassen. Verpasste richtige Aussagen kommen wieder; dafür gibt es keinen Abzug.
-- Nach jeder Aussage bleibt Zeit zum Lesen der Rückmeldung. Mit „Nächste Wolke“ geht es weiter. Pause und „Ohne Zeitdruck spielen“ sind verfügbar.
-- Erst mit „Station abschließen“ wird die erfolgreich bestandene Bergprüfung gespeichert.
-
-## Weiterhin enthalten
-Alle elf Stationen einschließlich Rucksack, Brücke und Versöhnungswerkstatt. Das große Fenster bleibt bis zum Abschluss aller Stationen kaputt und farblos. Danach erscheint es repariert und bunt. Keine Urkunde, Namenseingabe oder Druckfunktion.
+## Änderungen
+- Sorgenweg: Die Figur steht dauerhaft still. Es gibt keinen Bewegungsschalter. Der Rucksack ändert weiterhin seine Größe entsprechend der Last.
+- Zwölf verschiedene Situationen werden zufällig gemischt. Vor Wiederholungen wird der gesamte Vorrat durchlaufen; auch zwischen zwei Durchläufen wiederholt sich keine Situation direkt.
+- Start mit drei Sorgen; hilfreicher Rat −1, unpassender Rat +1. Bei null Sorgen kann die Station abgeschlossen werden. Die erste richtige Antwortseite ist zufällig, danach wechseln die Seiten von Runde zu Runde.
+- Auch bei den Auswahlfragen wie der Schriftrolle ist die richtige Antwort nicht immer an erster Stelle. Nach einer richtigen Antwort wechselt ihre Position.
+- Prüfstein: „Vorbeiziehen lassen“ steht jetzt oben, direkt vor dem Himmel mit der Sprechblase. Richtige Gebote gravieren die Steintafeln, falsche Treffer entfernen die letzten zwei Gravuren.
+- Das alte Buch ist der erste, hervorgehobene Punkt in jedem Raum. Ein Schnellverweis öffnet es während jeder Übung über der laufenden Aufgabe. Auswahl und Fortschritt bleiben erhalten. Eine laufende Bergprüfung wird beim Nachschlagen pausiert.
+- Alle elf Stationen haben illustrierte Motive. Neun neue Szenen ergänzen Bergprüfung und Sorgenweg; passende Papier-, Stein-, Metall- und Holzgestaltung unterstützt die Aufgaben.
+- Erst nach allen elf Stationen erstrahlt das kaputte Kapellenfenster wieder. Keine Urkunde und keine Druckfunktion.
 
 ## Dateien
-`index.html`, `styles.css`, `adventure.css`, `mountain.css`, `script.js`, `minigames.js`, `mountain.js`, `.nojekyll`, diese Anleitung und `DESIGN.md`.
-Im Ordner `assets` liegen drei erforderliche Bilder: `kapelle-kaputt.png`, `kapelle.png` und `berg.png`. Alle drei mit hochladen. Kein Build und keine Installation erforderlich.
+HTML: `index.html`.
+Stile: `styles.css`, `adventure.css`, `mountain.css`, `backpack.css`, `stations.css`.
+Spiel: `script.js`, `minigames.js`, `mountain.js`, `backpack.js`.
+Bilder: `assets/kapelle.png`, `assets/kapelle-kaputt.png`, `assets/berg.png`, `assets/sorgenweg.png`, `assets/jona.png`, `assets/stationen.png`.
+Außerdem `.nojekyll`, `README.md` und `DESIGN.md` mit Bildprompts. Kein Build, keine Installation und kein Backend nötig.
 
 ## Spielstand
-Die Seite speichert abgeschlossene Stationen lokal im jeweiligen Browser unter `regenbogen_kapelle_v5`. Angefangene Stationen starten beim erneuten Öffnen von vorn. Beim Aktualisieren der bisherigen Fortschrittsversion bleiben andere Stationsabschlüsse erhalten; die neue Bergprüfung muss einmal neu bestanden werden. Über den Zurücksetzen-Knopf beginnt das Spiel von vorn. Keine Konten oder zentralen Ergebnislisten.
+Abgeschlossene Stationen werden nur im jeweiligen Browser unter `regenbogen_kapelle_v5` gespeichert. Vorhandene Abschlüsse dieser Stationen bleiben bei diesem Update erhalten. Angefangene Stationen werden beim Verlassen oder Neuladen neu begonnen. Über den Zurücksetzen-Knopf lässt sich neu starten. Keine Namen, Konten oder zentralen Ergebnislisten.
 
-## Prüfung
-Die Bergprüfung wurde im Browser bis zu allen zehn Gravuren durchgespielt, einschließlich eines absichtlichen Fehlers mit Abzug von zwei Gravuren, erneutem Sammeln und gespeichertem Stationsabschluss nach Neuladen. Die Smartphoneansicht wurde bei 390 Pixeln Breite geprüft. Automatische Logikprüfungen decken doppelte Einträge, Untergrenze null, Abzug der letzten zwei Einträge und erneutes Vervollständigen ab. Der vollständige Ablauf aller anderen Stationen wurde für diese Änderung nicht erneut durchgespielt.
-
-## Neu: der Sorgenweg
-Der Rucksack ist jetzt eine illustrierte Szene mit Jona als bewegter Spielfigur in der Mitte und Ratgebenden an beiden Seiten. Start: drei Sorgen. Hilfreicher Rat: ein Stein weniger. Unpassender Rat: ein zusätzlicher Stein; die ungelöste Sorge kommt erneut vor. Ziel: null Sorgen und „Station abschließen“. Acht Situationen stehen zur Verfügung. Die Antwortseiten werden zufällig vertauscht. Die Bewegung lässt sich pausieren.
-
-Zusätzlich erforderlich: `backpack.js`, `backpack.css`, `assets/sorgenweg.png` und `assets/jona.png`. Der assets-Ordner enthält jetzt fünf Bilder. Beim Update bleiben andere Stationsabschlüsse erhalten; das neue Rucksackspiel muss neu abgeschlossen werden.
-
-Geprüft: Start mit drei Sorgen, Anstieg auf vier nach falschem Rat, Abbau bis null, Abschluss nach Neuladen sowie Darstellung bei 390 Pixeln Breite. Automatisch auch viele aufeinanderfolgende Fehler und vollständiger Abbau der zusätzlichen Lasten geprüft.
+## Geprüft
+Automatische Prüfungen: zwölf verschiedene Situationen pro Mischdurchlauf, zufällige Starts, wechselnde richtige Antwortseiten, Plus-/Minuspunkte und Untergrenze null. Browserprüfungen: ruhige Figur ohne Schalter, Seitenwechsel nach richtiger Antwort, altes Buch ohne Verlust einer ausgewählten Situationskarte, Steuerung über der Prüfstein-Sprechblase sowie Desktop- und Smartphoneansichten. Die vollständige Lösung aller elf Stationen wurde bei diesem Update nicht erneut durchgespielt.

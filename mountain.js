@@ -58,7 +58,7 @@
     }
     var notice=el('p','mountain-feedback','Lest genau: Manchmal verändert ein einziges Wort die Bedeutung.');notice.setAttribute('role','status');game.appendChild(notice);
     var controls=el('div','mountain-controls');game.appendChild(controls);
-    var skip=btn('Vorbeiziehen lassen →','btn ghost',function(){settle(false);});skip.hidden=true;controls.appendChild(skip);
+    var skip=btn('Vorbeiziehen lassen →','btn ghost',function(){settle(false);});skip.hidden=true;toolbar.appendChild(skip);
     var next=btn('Auf den Berg! ☁','btn sunshine',nextCloud);controls.appendChild(next);
     var calm=el('label','mountain-calm'),check=el('input');check.type='checkbox';check.checked=reduced;
     check.addEventListener('change',function(){reduced=check.checked;if(active){active.bubble.classList.toggle('still',reduced);active.bubble.style.animationPlayState=paused?'paused':'running';}});

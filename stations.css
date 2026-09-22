@@ -1,0 +1,32 @@
+/* Neun eigens illustrierte Adventure-Orte aus einem 3×3-Bildatlas. */
+[data-station]{--scene-x:0%;--scene-y:0%}
+[data-station="alltag"]{--scene-x:50%}
+[data-station="reihenfolge"]{--scene-x:100%}
+[data-station="frage"]{--scene-y:50%}
+[data-station="antwort"],[data-station="buch"]{--scene-x:50%;--scene-y:50%}
+[data-station="sortieren"]{--scene-x:100%;--scene-y:50%}
+[data-station="doppel"]{--scene-y:100%}
+[data-station="bruecke"]{--scene-x:50%;--scene-y:100%}
+[data-station="werkstatt"]{--scene-x:100%;--scene-y:100%}
+.hotspot[data-station]{padding:10px 10px 15px;overflow:hidden}
+.hotspot[data-station] .hotspot-icon{font-size:0;aspect-ratio:1;background-image:url('assets/stationen.png');background-size:300% 300%;background-position:var(--scene-x) var(--scene-y);border:2px solid #6c5035;border-radius:12px 16px 9px 14px;filter:none;margin-bottom:12px}
+.hotspot[data-station="bergpruefung"] .hotspot-icon{background-image:url('assets/berg.png');background-size:cover;background-position:center}
+.hotspot[data-station="sorgenweg"] .hotspot-icon{background-image:url('assets/sorgenweg.png');background-size:cover;background-position:center}
+.hotspot[data-station="buch"]{grid-column:1/-1;display:grid;grid-template-columns:96px 1fr;align-items:center;background:linear-gradient(110deg,#fff5be,#e4bf76);border:3px solid #89612e;border-style:solid;text-align:left;transform:none}
+.hotspot[data-station="buch"] .hotspot-icon{grid-row:1/3;margin:0 16px 0 0;width:80px}
+.hotspot[data-station="buch"] .hotspot-label{max-width:none;margin:0;font:700 1.3rem Georgia}
+.hotspot[data-station="buch"]::after{content:'Euer Begleiter · Gebote & hilfreiche Gedanken';margin:0;text-transform:none;letter-spacing:0}
+.station-tools{position:sticky;top:8px;z-index:8;display:flex;justify-content:flex-end;pointer-events:none;margin:-5px 0 18px}
+.book-quick{pointer-events:auto;background:#ffda7f;color:#46331e;border:2px solid #75532b;font-size:.85rem;padding:10px 14px;box-shadow:2px 3px #76502b40}
+.station-art{width:min(100%,350px);aspect-ratio:1;margin:0 auto 24px;border:5px solid #705239;border-radius:22px 12px 24px 10px;background-image:url('assets/stationen.png');background-size:300% 300%;background-position:var(--scene-x) var(--scene-y);box-shadow:5px 7px 0 #75573540}
+.station-title{text-align:center;color:#285d58;font-family:Georgia,serif}
+.detail-view[data-station="reihenfolge"] .chip{background:linear-gradient(120deg,#efead2,#c5c1a6);border-color:#7b8070;border-radius:8px 17px 5px 10px}
+.detail-view[data-station="reihenfolge"] .sentence-box{background:#d5d3bd;border:3px solid #737864;color:#34433d}
+.detail-view[data-station="alltag"] .statement-card{background:#fff0ba;border:2px solid #a98043;box-shadow:3px 4px 0 #b5966240}
+.detail-view[data-station="sortieren"] .bucket{border:3px solid #a37a35;background:linear-gradient(#fff7d6,#e9d9a7);border-radius:10px 10px 36px 36px}
+.detail-view[data-station="doppel"] .keypad{padding:22px;background:linear-gradient(135deg,#bd8544,#62452d);border:5px solid #553c29;border-radius:22px;box-shadow:inset 0 0 0 3px #eac180}
+.detail-view[data-station="bedeutung"] .question-text,.detail-view[data-station="antwort"] .sentence-box{background:#f6e3ac;border:2px solid #b58c4b;padding:20px;border-radius:3px 20px 6px 15px;box-shadow:4px 5px 0 #72513530}
+.book-dialog{width:min(90vw,760px);max-height:85vh;border:4px solid #694b2d;border-radius:18px;padding:24px;background:#fff4d4;color:#493523;box-shadow:12px 14px 0 #31271c55}.book-dialog::backdrop{background:#193c3bd9}.book-close{position:sticky;top:0;display:block;margin-left:auto;background:#ffda7f;z-index:1}.book-dialog h2{font-family:Georgia,serif}.book-dialog .hilfe-panel{border:0;background:transparent;padding:0}.mountain-toolbar{flex-wrap:wrap;gap:12px}.mountain-toolbar .btn{font-size:.88rem}.mountain-toolbar .btn:last-child{background:#ffe299;border:2px solid #796644}
+@media(max-width:600px){.station-art{max-width:260px}.book-quick{font-size:.75rem}.book-dialog{padding:16px}.hotspot[data-station="buch"] .hotspot-label{font-size:1.1rem}.hotspot[data-station="buch"]::after{font-size:.72rem}.station-tools{top:6px}.hotspot-badge{right:3px;top:3px}}
+.hotspot[data-station="buch"]{min-height:112px}.hotspot-badge{right:4px;top:4px;z-index:1}
+.hotspot[data-station="ausgang"] .hotspot-icon{background-image:url('assets/kapelle-kaputt.png');background-size:350%;background-position:right 55%}

@@ -10,14 +10,20 @@
     {worry:'Ich bin traurig. Ich will aber niemandem zur Last fallen.',good:'Du darfst traurig sein. Frag eine vertraute Person, ob sie dir zuhören kann.',bad:'Behalte es für dich und lächle. Gute Freunde haben schließlich schon genug eigene Probleme.',why:'Gefühle müssen nicht versteckt werden. Um Zuhören zu bitten ist erlaubt.'},
     {worry:'Jemand erzählt etwas Falsches über mich. Das macht mich wütend.',good:'Hol dir Unterstützung und stelle ruhig klar, was stimmt. Du musst das nicht allein lösen.',bad:'Erzähle etwas Schlimmeres über die Person. Dann hört sie bestimmt auf.',why:'Neue Gerüchte verletzen weitere Menschen. Unterstützung und eine klare Grenze können helfen.'},
     {worry:'Ich brauche eine Pause, aber alle erwarten, dass ich weitermache.',good:'Sag, dass du eine Pause brauchst. Gemeinsam könnt ihr einen machbaren nächsten Schritt suchen.',bad:'Ignoriere die Erschöpfung. Wenn du immer weitermachst, enttäuschst du niemanden.',why:'Eigene Grenzen zu achten ist wichtig. Erholung ist kein Versagen.'}
+    ,{worry:'Ich wurde nicht zum Geburtstag eingeladen. Vielleicht mag mich niemand.',good:'Das tut weh. Eine Einladung entscheidet nicht über deinen Wert. Sprich mit jemandem, dem du vertraust.',bad:'Lade die Person künftig auch nie mehr ein und bring andere gegen sie auf.',why:'Enttäuschung darf da sein. Rache macht daraus oft einen größeren Streit.'},
+    {worry:'Ich soll ein Geheimnis bewahren, aber es macht mir richtig Angst.',good:'Wenn dir ein Geheimnis Angst macht, darfst du Hilfe bei einer vertrauten erwachsenen Person holen.',bad:'Ein Versprechen gilt immer. Du darfst es selbst dann niemandem sagen, wenn du Angst hast.',why:'Belastende Geheimnisse musst du nicht allein tragen. Hilfe holen ist erlaubt.'},
+    {worry:'In unserer Gruppe mache ich fast alles allein. Ich traue mich nicht, Nein zu sagen.',good:'Sprich an, was du bereits übernommen hast. Vereinbart gemeinsam eine faire Aufteilung.',bad:'Mach einfach alles fertig. Nur dann mögen dich die anderen weiterhin.',why:'Du musst dir Zugehörigkeit nicht durch Überlastung verdienen. Aufgaben dürfen fair verteilt werden.'},
+    {worry:'Morgen muss ich etwas vortragen. Ich habe Angst, dass ich einen Fehler mache.',good:'Übe einen kleinen Abschnitt mit jemandem. Du darfst Pausen machen und auf deine Notizen schauen.',bad:'Lerne alles ohne Pause. Erst wenn du jeden Fehler ausschließen kannst, darfst du aufhören.',why:'Kleine Übungsschritte helfen. Niemand muss einen Vortrag vollkommen fehlerfrei halten.'}
   ];
-  function createJourney(){
-    var queue=[0,1,2],next=3;
-    return {count:function(){return queue.length;},current:function(){return situations[queue[0]];},choose:function(good){
-      if(!queue.length)return 0;
-      if(good)queue.shift();else{queue.push(queue.shift());queue.push(next++%situations.length);}
-      return queue.length;
-    }};
+  function createJourney(random){
+    random=random||Math.random;
+    var count=3,deck=[],current=-1,side=random()<.5?0:1;
+    function draw(){
+      if(!deck.length){deck=situations.map(function(_,i){return i;});for(var i=deck.length-1;i>0;i--){var j=Math.floor(random()*(i+1)),v=deck[i];deck[i]=deck[j];deck[j]=v;}if(deck.length>1&&deck[deck.length-1]===current){var x=deck[0];deck[0]=deck[deck.length-1];deck[deck.length-1]=x;}}
+      current=deck.pop();
+    }
+    draw();
+    return {count:function(){return count;},current:function(){return count?situations[current]:undefined;},side:function(){return side;},choose:function(good){if(!count)return 0;count+=good?-1:1;side=1-side;if(count)draw();return count;}};
   }
   function render(container,onSolved){
     var journey=createJourney(),locked=false,finished=false;
@@ -36,13 +42,11 @@
     var bag=el('div','worry-bag'),rocks=el('div','worry-rocks');bag.appendChild(rocks);walker.appendChild(bag);actors.appendChild(right);
     var feedback=el('p','worry-feedback','Welcher Rat hilft Jona, ohne Gefühle kleinzumachen?');feedback.setAttribute('role','status');game.appendChild(feedback);
     var next=button('Weitergehen →','btn sunshine',function(){if(!locked||finished)return;if(journey.count()===0){finished=true;next.disabled=true;onSolved();}else round(true);});next.hidden=true;game.appendChild(next);
-    var calmLabel=el('label','worry-calm'),calm=el('input');calm.type='checkbox';calm.checked=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    calm.addEventListener('change',function(){scene.classList.toggle('worry-still',calm.checked);});calmLabel.appendChild(calm);calmLabel.appendChild(document.createTextNode(' Bewegung pausieren'));game.appendChild(calmLabel);scene.classList.toggle('worry-still',calm.checked);
-    function refresh(){var n=journey.count();count.textContent=n+' '+(n===1?'Sorge':'Sorgen')+' im Rucksack';scene.style.setProperty('--bag-scale',String(.45+Math.min(1.15,n*.16)));scene.style.setProperty('--pace',Math.min(1.9,.65+n*.13)+'s');scene.classList.toggle('worry-free',n===0);rocks.replaceChildren();for(var i=0;i<Math.min(n,12);i++)rocks.appendChild(el('span','worry-rock'));bag.setAttribute('data-count',String(n));}
+    function refresh(){var n=journey.count();count.textContent=n+' '+(n===1?'Sorge':'Sorgen')+' im Rucksack';scene.style.setProperty('--bag-scale',String(.45+Math.min(1.15,n*.16)));scene.classList.toggle('worry-free',n===0);rocks.replaceChildren();for(var i=0;i<Math.min(n,12);i++)rocks.appendChild(el('span','worry-rock'));bag.setAttribute('data-count',String(n));}
     function round(focus){
       locked=false;next.hidden=true;scene.classList.remove('worry-good','worry-bad');refresh();
       var data=journey.current();speech.textContent='Jona: „'+data.worry+'“';left.replaceChildren();right.replaceChildren();feedback.textContent='Welcher Rat hilft Jona?';
-      var choices=[{good:true,text:data.good},{good:false,text:data.bad}];if(Math.random()<.5)choices.reverse();
+      var choices=[{good:true,text:data.good},{good:false,text:data.bad}];if(journey.side()===1)choices.reverse();
       [left,right].forEach(function(side,i){
         var option=button(choices[i].text,'advice-bubble',function(){
           if(locked||finished)return;locked=true;var good=choices[i].good;journey.choose(good);refresh();
