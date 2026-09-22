@@ -18,13 +18,13 @@
   <section class="screen active" id="screen-intro">
     <div class="intro-copy">
     <div class="title-block"><p class="kicker">✦ Euer Rätselabenteuer · Klasse 5</p><h1>Die Regenbogen-<br><span>Kapelle</span></h1></div>
-    <p class="story">Willkommen in der Regenbogen-Kapelle! ✨ Ihr großes Fenster ist seit Langem grau und leer. Nur wer sein Wissen aus dem Religionsunterricht einsetzt, kann die zwei fehlenden Teile finden und dem Fenster seine Farben zurückgeben. In jedem Raum gibt es eine <b>Hilfekarte 📖</b> zum Nachschlagen und mindestens ein Minispiel zum Mitmachen!</p>
+    <p class="story">Willkommen in der Regenbogen-Kapelle! ✨ Ihr großes Fenster ist zerbrochen und farblos. Löst alle elf Rätselstationen, um es zu reparieren und die Kapelle wieder zum Leuchten zu bringen. In jedem Raum gibt es eine <b>Hilfekarte 📖</b> zum Nachschlagen und mindestens ein Minispiel zum Mitmachen!</p>
     <div class="center"><button class="btn sunshine" id="startBtn">Abenteuer starten <span aria-hidden="true">→</span></button></div>
     <div class="adventure-facts"><span>2 geheimnisvolle Räume</span><span>11 Rätselstationen</span><span>Gemeinsam entdecken</span></div>
     <footer class="credits">Themen: Die Zehn Gebote · Das Doppelgebot der Liebe</footer>
     <noscript><p>Bitte aktiviere JavaScript in deinem Browser, damit du spielen kannst.</p></noscript>
     </div>
-    <aside class="window-note"><div class="intro-hero" id="introWindowHolder"></div><div><strong>Bringt die Farben zurück!</strong><p>Jeder gelöste Raum lässt euer Fenster leuchten.</p></div></aside>
+    <aside class="window-note"><div class="intro-hero" id="introWindowHolder"></div><div><strong>Bringt die Farben zurück!</strong><p>Erst nach allen elf Stationen erstrahlt das große Fenster.</p></div></aside>
   </section>
   <section class="screen" id="screen-game">
     <div class="map-header">
@@ -37,14 +37,13 @@
         <button class="node locked" data-room="final" data-accent="violet"><span class="dot">🔒</span><span class="label">Kapelle</span></button>
       </nav>
     </div>
-    <div class="card room-card" id="roomContent"></div>
+    <p class="restoration-progress" data-progress role="status">0 / 11 Stationen geschafft</p><div class="card room-card" id="roomContent"></div>
   </section>
   <section class="screen" id="screen-finale">
-    <div class="finale-hero" id="finaleWindowHolder"></div>
+    <img class="finale-scene" src="assets/kapelle.png" alt="Das reparierte Fenster erstrahlt in allen Farben und taucht die Kapelle in warmes Licht."><div class="finale-hero" id="finaleWindowHolder"></div>
     <div class="title-block"><h1>Die Kapelle erstrahlt! 🎉</h1></div>
-    <div class="message-card">Ihr habt beide Teile gefunden und dem Fenster seine Farben zurückgegeben. Ihr habt die Zehn Gebote und das Doppelgebot der Liebe erkundet. Außerdem habt ihr Brücken der Nächstenliebe gebaut, einen unsichtbaren Rucksack erleichtert und in der Versöhnungs-Werkstatt ein faires Gespräch geführt. Nehmt eine eurer Ideen mit in den Alltag. Klasse gemacht!</div>
-    <div class="cert"><p class="kicker">Urkunde für</p><div class="cert-name" id="certName">___________</div><input type="text" id="nameInput" aria-label="Name auf der Urkunde" placeholder="Trag hier deinen Namen ein" maxlength="30" autocomplete="off"></div>
-    <div class="button-row"><button class="btn mint" id="printBtn">Urkunde drucken 🖨️</button><button class="btn ghost" id="replayBtn">Nochmal spielen 🔄</button></div>
+    <div class="message-card">Ihr habt alle elf Stationen geschafft und das zerbrochene Fenster repariert. Ihr habt die Zehn Gebote und das Doppelgebot der Liebe erkundet. Außerdem habt ihr Brücken der Nächstenliebe gebaut, einen unsichtbaren Rucksack erleichtert und in der Versöhnungs-Werkstatt ein faires Gespräch geführt. Nehmt eine eurer Ideen mit in den Alltag. Klasse gemacht!</div>
+    <div class="button-row"><button class="btn ghost" id="replayBtn">Nochmal spielen 🔄</button></div>
   </section>
 </main>
 </body>

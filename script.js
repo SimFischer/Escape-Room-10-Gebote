@@ -57,17 +57,24 @@
   ROOM2_HILFE += '<h4>Brücken der Nächstenliebe</h4><p>Lade ein, ohne zu drängen. Unterstütze andere beim eigenen Lernen. Respektiere Grenzen und bleibe ansprechbar.</p><h4>Die Versöhnungs-Werkstatt</h4><p>Beschreibe, was passiert ist. Sage, wie du dich fühlst und was du brauchst. Übernimm Verantwortung für deine Handlung. Biete eine passende Wiedergutmachung an. Niemand muss sofort verzeihen. Bei Drohungen oder Gewalt helfen vertraute Erwachsene.</p>';
 
   // Neue Inhalte sollen auch nach einem früheren Spielabschluss offen sein.
-  var STORAGE_KEY = 'regenbogen_kapelle_v4';
+  var STORAGE_KEY = 'regenbogen_kapelle_v5';
   var state = loadState();
   // Laufende Animationen und verzögerte Aufgaben beim Verlassen stoppen.
   var timers = new Set();
   var intervals = new Set();
   function later(fn, ms) { var id = setTimeout(function(){timers.delete(id);fn();},ms);timers.add(id);return id; }
-  function stopActivities(){timers.forEach(clearTimeout);timers.clear();intervals.forEach(clearInterval);intervals.clear();}
+  function stopActivities(){timers.forEach(clearTimeout);timers.clear();intervals.forEach(clearInterval);intervals.clear();document.body.classList.remove('hit-good','hit-bad');}
+  function emptyState(){return {room1:false,room2:false,solved:{}};}
   function loadState(){
-    try {var parsed=JSON.parse(localStorage.getItem(STORAGE_KEY));if(parsed && typeof parsed==='object')return {room1:parsed.room1===true,room2:parsed.room1===true&&parsed.room2===true,name:typeof parsed.name==='string'?parsed.name.slice(0,30):''};} catch(e){}
-    return {room1:false,room2:false,name:''};
+    var next=emptyState();
+    try{var parsed=JSON.parse(localStorage.getItem(STORAGE_KEY));if(parsed&&parsed.solved){
+      ROOM1_OBJECTS.concat(ROOM2_OBJECTS).forEach(function(o){if(parsed.solved[o.id]===true)next.solved[o.id]=true;});
+      next.room1=parsed.room1===true&&ROOM1_OBJECTS.every(function(o){return next.solved[o.id];});
+      next.room2=next.room1&&parsed.room2===true&&ROOM2_OBJECTS.every(function(o){return next.solved[o.id];});
+    }}catch(e){}return next;
   }
+  function solvedCount(){return ROOM1_OBJECTS.concat(ROOM2_OBJECTS).filter(function(o){return state.solved[o.id];}).length;}
+  function allSolved(){return solvedCount()===11;}
   function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));}catch(e){}}
 
   var WEDGE_COLORS={1:'var(--sunshine)',2:'var(--coral)'};
@@ -91,15 +98,19 @@
     svg.appendChild(svgEl('circle',{cx:150,cy:180,r:24,fill:'var(--cream)',stroke:'var(--sunshine-dark)','stroke-width':4}));return svg;
   }
   var windowSvg=buildWindowSVG('windowSvg');
-  function refreshWindow(){windowSvg.querySelectorAll('.wedge').forEach(function(w){w.setAttribute('fill',state['room'+w.dataset.group]?w.dataset.color:'var(--grey-glass)');});windowSvg.classList.toggle('complete',state.room1&&state.room2);}
+  function refreshWindow(){
+    var count=solvedCount(),complete=allSolved();
+    document.body.classList.toggle('restored',complete);
+    document.querySelectorAll('[data-progress]').forEach(function(e){e.textContent=count+' / 11 Stationen geschafft';});
+    windowSvg.querySelectorAll('.wedge').forEach(function(w,i){w.setAttribute('fill',complete?w.dataset.color:'var(--grey-glass)');w.setAttribute('opacity',complete?'1':(i%3===0?'.25':'.8'));});
+    windowSvg.classList.toggle('complete',complete);
+  }
   function placeWindow(holderId,size){var holder=document.getElementById(holderId);holder.innerHTML='';holder.appendChild(windowSvg);windowSvg.style.width=size==='small'?'100%':size==='finale'?'250px':'220px';}
   function showScreen(id){stopActivities();document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');}
   document.getElementById('startBtn').addEventListener('click',function(){showScreen('screen-game');placeWindow('gameWindowHolder','small');renderRoom(!state.room1?1:!state.room2?2:1);});
-  function resetGame(){stopActivities();document.querySelectorAll('.confetti').forEach(function(c){c.remove();});state={room1:false,room2:false,name:''};saveState();refreshWindow();placeWindow('introWindowHolder');showScreen('screen-intro');}
+  function resetGame(){stopActivities();document.querySelectorAll('.confetti').forEach(function(c){c.remove();});state=emptyState();saveState();refreshWindow();placeWindow('introWindowHolder');showScreen('screen-intro');}
   document.getElementById('resetBtn').addEventListener('click',function(){if(confirm('Wirklich von vorne beginnen? Euer Fortschritt geht dann verloren.'))resetGame();});
   document.getElementById('replayBtn').addEventListener('click',resetGame);
-  document.getElementById('printBtn').addEventListener('click',function(){window.print();});
-  document.getElementById('nameInput').addEventListener('input',function(e){var v=e.target.value.trim();document.getElementById('certName').textContent=v||'___________';state.name=v;saveState();});
   function updateMap(){
     document.querySelectorAll('#roomNav .node').forEach(function(n){var r=n.dataset.room;n.classList.remove('locked','active','done');if(r==='final'){var all=state.room1&&state.room2;n.classList.add(all?'active':'locked');n.querySelector('.dot').textContent=all?'🌟':'🔒';}else{var done=state['room'+r],unlocked=r==='1'||state['room'+(r-1)];n.classList.add(done?'done':unlocked?'active':'locked');n.querySelector('.dot').textContent=done?'✅':unlocked?(r==='1'?'📜':'❤️'):'🔒';}n.setAttribute('aria-disabled',n.classList.contains('locked')?'true':'false');});
     document.getElementById('conn1').classList.toggle('done',state.room1);document.getElementById('conn2').classList.toggle('done',state.room2);refreshWindow();
@@ -109,13 +120,13 @@
   function finishRoom(n,message){
     stopActivities();state['room'+n]=true;saveState();updateMap();var box=document.getElementById('roomContent');box.innerHTML='';var wrap=el('div','success-box');wrap.appendChild(el('span','big-emoji','🎉'));wrap.appendChild(el('p','',message));var next=el('button','btn '+(n===1?'coral':'sunshine'),n<2?'Weiter zum nächsten Raum →':'Zur strahlenden Kapelle 🌟');next.addEventListener('click',function(){if(n<2)renderRoom(n+1);else showFinale();});wrap.appendChild(document.createElement('br'));wrap.appendChild(next);box.appendChild(wrap);
   }
-  function showFinale(){showScreen('screen-finale');placeWindow('finaleWindowHolder','finale');refreshWindow();document.getElementById('nameInput').value=state.name||'';document.getElementById('certName').textContent=state.name||'___________';launchConfetti();}
+  function showFinale(){if(!allSolved())return;showScreen('screen-finale');placeWindow('finaleWindowHolder','finale');refreshWindow();launchConfetti();}
   function reducedMotion(){return window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;}
   function launchConfetti(){if(reducedMotion())return;var colors=['#FFC94D','#FF7A93','#4FC3E8','#34D1A6','#9B7EDE'];for(var i=0;i<28;i++)(function(){var c=el('div','confetti');c.style.left=Math.random()*100+'vw';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDuration=(2.2+Math.random()*1.6)+'s';c.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(c);setTimeout(function(){c.remove();},4500);})();}
   function renderRoom(n){
     stopActivities();updateMap();var box=document.getElementById('roomContent');box.className='card room-card room-'+n;box.innerHTML='';
-    if(n===1)buildRoomScene(box,{badge:'Raum 1 · Die Zehn Gebote',intro:'Ihr betretet die Gebotskammer. Fünf geheimnisvolle Gegenstände warten darauf, untersucht zu werden – darunter ein unsichtbarer Rucksack. Findet den Weg zum Ausgang!',objects:ROOM1_OBJECTS,hilfe:ROOM1_HILFE,onComplete:function(){finishRoom(1,'Ihr habt die Zehn Gebote erkundet und hilfreiche Gedanken für den unsichtbaren Rucksack gefunden! Das erste Fenster-Teil erstrahlt in Sonnenfarben.');}});
-    if(n===2)buildRoomScene(box,{badge:'Raum 2 · Das Doppelgebot der Liebe',intro:'Ihr betretet die Kammer der Liebe. Auch hier warten Gegenstände darauf, entdeckt zu werden …',objects:ROOM2_OBJECTS,hilfe:ROOM2_HILFE,onComplete:function(){finishRoom(2,'„Liebe Gott von ganzem Herzen – und deinen Mitmenschen wie dich selbst.“ Genau das ist das Doppelgebot der Liebe: In diesen zwei Sätzen stecken alle Zehn Gebote. Das zweite Fenster-Teil erstrahlt in Herzfarben!');}});
+    if(n===1)buildRoomScene(box,{badge:'Raum 1 · Die Zehn Gebote',intro:'Ihr betretet die Gebotskammer. Fünf geheimnisvolle Gegenstände warten darauf, untersucht zu werden – darunter ein unsichtbarer Rucksack. Findet den Weg zum Ausgang!',objects:ROOM1_OBJECTS,hilfe:ROOM1_HILFE,onComplete:function(){finishRoom(1,'Ihr habt die Zehn Gebote erkundet und hilfreiche Gedanken für den unsichtbaren Rucksack gefunden! Fünf Stationen sind geschafft. Das Fenster wartet noch auf die übrigen Teile!');}});
+    if(n===2)buildRoomScene(box,{badge:'Raum 2 · Das Doppelgebot der Liebe',intro:'Ihr betretet die Kammer der Liebe. Auch hier warten Gegenstände darauf, entdeckt zu werden …',objects:ROOM2_OBJECTS,hilfe:ROOM2_HILFE,onComplete:function(){finishRoom(2,'„Liebe Gott von ganzem Herzen – und deinen Mitmenschen wie dich selbst.“ Genau das ist das Doppelgebot der Liebe: In diesen zwei Sätzen stecken alle Zehn Gebote. Alle elf Stationen sind geschafft – das Fenster ist repariert und erstrahlt wieder!');}});
   }
   function buildHotspot(icon,label,status){var tile=el('button','hotspot hotspot-'+status);tile.appendChild(el('div','hotspot-icon',icon));tile.appendChild(el('div','hotspot-label',label));if(status==='done')tile.appendChild(el('div','hotspot-badge hotspot-badge-done','✓'));if(status==='locked'){tile.appendChild(el('div','hotspot-badge hotspot-badge-locked','🔒'));tile.setAttribute('aria-disabled','true');}return tile;}
   function runObjectSteps(container,steps,onAllDone){
@@ -125,11 +136,11 @@
     render();
   }
   function buildRoomScene(box,opts){
-    var solved={};opts.objects.forEach(function(o){solved[o.id]=false;});box.appendChild(el('span','eyebrow-badge',opts.badge));var intro=el('p','scene-intro',opts.intro);box.appendChild(intro);var grid=el('div','hotspot-grid');box.appendChild(grid);var detail=el('div','detail-view');detail.style.display='none';box.appendChild(detail);
+    var solved=state.solved;box.appendChild(el('span','eyebrow-badge',opts.badge));var intro=el('p','scene-intro',opts.intro);box.appendChild(intro);var grid=el('div','hotspot-grid');box.appendChild(grid);var detail=el('div','detail-view');detail.style.display='none';box.appendChild(detail);
     function renderGrid(){grid.innerHTML='';opts.objects.forEach(function(o){var tile=buildHotspot(o.icon,o.label,solved[o.id]?'done':'open');tile.addEventListener('click',function(){if(!solved[o.id])openObject(o);});grid.appendChild(tile);});var book=buildHotspot('📖','Das alte Buch','info');book.addEventListener('click',function(){showDetail(function(c){c.appendChild(el('div','hilfe-panel',opts.hilfe));});});grid.appendChild(book);var ready=opts.objects.every(function(o){return solved[o.id];});var exit=buildHotspot('🚪','Der Ausgang',ready?'exit-ready':'locked');exit.addEventListener('click',function(){if(ready)opts.onComplete();else shake(exit);});grid.appendChild(exit);}
     function showDetail(builder){stopActivities();grid.style.display='none';intro.style.display='none';detail.style.display='block';detail.innerHTML='';var back=el('button','btn ghost back-btn','← Zurück zum Raum');back.addEventListener('click',closeDetail);detail.appendChild(back);builder(detail);}
     function closeDetail(){stopActivities();detail.innerHTML='';detail.style.display='none';grid.style.display='';intro.style.display='';renderGrid();}
-    function openObject(o){showDetail(function(c){c.appendChild(el('p','object-flavor',o.flavor));runObjectSteps(c,o.steps,function(){solved[o.id]=true;closeDetail();});});}
+    function openObject(o){showDetail(function(c){c.appendChild(el('p','object-flavor',o.flavor));runObjectSteps(c,o.steps,function(){solved[o.id]=true;saveState();refreshWindow();closeDetail();});});}
     renderGrid();
   }
   function makeHint(){var hint=el('p','hint','');hint.setAttribute('aria-live','polite');return hint;}
@@ -146,13 +157,43 @@
     step.buckets.forEach(function(bd){bucketEls[bd.key].el.addEventListener('click',function(){tryPlace(bd.key);});bucketEls[bd.key].el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();tryPlace(bd.key);}});});
   }
   function renderCatchStep(container,step,onSolved){
-    container.appendChild(el('p','',step.intro));var score=el('div','catch-score','Gefangen: 0 / '+step.target);score.setAttribute('aria-live','polite');container.appendChild(score);var hint=makeHint(),caught=0,finished=false,spawnTimer=null;
-    function handleWord(good,node){if(finished)return;if(good){caught++;score.textContent='Gefangen: '+caught+' / '+step.target;node.classList.add('catch-caught');node.disabled=true;later(function(){node.remove();},400);if(caught>=step.target){finished=true;clearInterval(spawnTimer);intervals.delete(spawnTimer);hint.textContent='';later(onSolved,500);}}else{hint.textContent=step.badHint;node.classList.add('catch-wrong');node.disabled=true;later(function(){node.remove();},400);}}
+    container.appendChild(el('p','',step.intro));
+    container.appendChild(el('p','catch-rules','Richtig: +1 Punkt · Falsch: −1 Punkt (mindestens 0). Sammelt '+step.target+' Punkte!'));
+    var score=el('div','catch-score','Gefangen: 0 / '+step.target);score.setAttribute('aria-live','polite');container.appendChild(score);
+    var hint=makeHint(),caught=0,finished=false,spawnTimer=null,flashTimer=null;
+    function feedback(good){
+      clearTimeout(flashTimer);timers.delete(flashTimer);
+      document.body.classList.remove('hit-good','hit-bad');document.body.classList.add(good?'hit-good':'hit-bad');
+      flashTimer=later(function(){document.body.classList.remove('hit-good','hit-bad');},420);
+      score.classList.toggle('score-good',good);score.classList.toggle('score-bad',!good);
+    }
+    function handleWord(good,chip,staticMode){
+      if(finished||chip.disabled)return;
+      chip.disabled=true;
+      caught=good?caught+1:Math.max(0,caught-1);
+      score.textContent='Gefangen: '+caught+' / '+step.target;
+      hint.textContent=good?'✓ +1 Punkt – das passt zu den Zehn Geboten!':'✕ −1 Punkt (mindestens 0). '+step.badHint;
+      feedback(good);
+      if(caught>=step.target){finished=true;clearInterval(spawnTimer);intervals.delete(spawnTimer);hint.textContent='✓ Geschafft! Ihr habt '+step.target+' Punkte gesammelt.';later(onSolved,700);}
+      chip.classList.add(good?'catch-caught':'catch-wrong');
+      later(function(){if(staticMode){chip.classList.remove('catch-caught','catch-wrong');chip.disabled=finished;}else chip.remove();},450);
+    }
     if(reducedMotion()){
-      var pool=el('div','catch-static-pool');var words=step.good.map(function(w){return {w:w,good:true};}).concat(step.bad.map(function(w){return {w:w,good:false};}));shuffle(words).forEach(function(item){var chip=el('button','catch-chip',item.w);chip.addEventListener('click',function(){if(chip.dataset.done)return;chip.dataset.done='1';handleWord(item.good,chip);});pool.appendChild(chip);});container.appendChild(pool);container.appendChild(hint);
+      container.appendChild(el('p','catch-rules','Ruhiger Modus: Tippt passende Begriffe an. Nach einem kurzen Moment könnt ihr sie erneut auswählen.'));
+      var pool=el('div','catch-static-pool');
+      shuffle(step.good.map(function(w){return {w:w,good:true};}).concat(step.bad.map(function(w){return {w:w,good:false};}))).forEach(function(item){
+        var chip=el('button','catch-chip',item.w);chip.addEventListener('click',function(){handleWord(item.good,chip,true);});pool.appendChild(chip);
+      });container.appendChild(pool);container.appendChild(hint);
     }else{
       var game=el('div','catch-game');container.appendChild(game);container.appendChild(hint);var activeCount=0;
-      spawnTimer=setInterval(function(){if(finished||activeCount>=5)return;var good=Math.random()<.45,list=good?step.good:step.bad,word=list[Math.floor(Math.random()*list.length)],chip=el('button','catch-chip falling',word);chip.style.animationDuration=(3.6+Math.random()*2)+'s';activeCount++;chip.addEventListener('click',function(){if(chip.dataset.done)return;chip.dataset.done='1';activeCount--;handleWord(good,chip);});chip.addEventListener('animationend',function(){if(!chip.dataset.done){chip.dataset.done='1';activeCount--;chip.remove();}});game.appendChild(chip);chip.style.left=Math.max(0,Math.random()*(game.clientWidth-chip.offsetWidth))+'px';},850);intervals.add(spawnTimer);
+      spawnTimer=setInterval(function(){
+        if(finished||activeCount>=5)return;
+        var good=Math.random()<.55,list=good?step.good:step.bad,chip=el('button','catch-chip falling',list[Math.floor(Math.random()*list.length)]);
+        chip.style.animationDuration=(4.5+Math.random()*2)+'s';activeCount++;
+        chip.addEventListener('click',function(){if(chip.dataset.done||finished)return;chip.dataset.done='1';activeCount--;handleWord(good,chip,false);});
+        chip.addEventListener('animationend',function(){if(!chip.dataset.done){chip.dataset.done='1';activeCount--;chip.remove();}});
+        game.appendChild(chip);chip.style.left=Math.max(0,Math.random()*(game.clientWidth-chip.offsetWidth))+'px';
+      },850);intervals.add(spawnTimer);
     }
   }
   placeWindow('introWindowHolder');refreshWindow();updateMap();
