@@ -104,39 +104,6 @@
     reflection: 'Zum Weiterdenken: Bei wiederholter Ausgrenzung, Drohungen oder Gewalt müsst ihr den Streit nicht allein lösen. Holt euch Unterstützung bei einer vertrauten erwachsenen Person.'
   };
 
-  var stones = [
-    {
-      thought: '„Alle haben ein besseres Handy als ich.“',
-      story: 'Jona vergleicht ständig Handys und kann sich über das eigene kaum noch freuen.',
-      choices: [
-        {text: '„Ich darf mir etwas wünschen. Mein Wert hängt aber nicht von meinem Handy ab.“', good: true, feedback: 'Ein Wunsch darf bleiben. Jona erinnert sich: Ein Gerät bestimmt nicht, wie wertvoll ein Mensch ist.'},
-        {text: '„Ich bin ein schlechter Mensch, weil ich neidisch bin.“', feedback: 'Neid ist ein Gefühl, das Menschen kennen. Du musst dich dafür nicht abwerten. Wichtig ist, wie du damit umgehst.'},
-        {text: '„Ich mache das Handy der anderen schlecht.“', feedback: 'Andere abzuwerten macht den Vergleich nicht leichter. Suche einen Gedanken, der Jona stärkt, ohne andere kleinzumachen.'}
-      ],
-      support: 'Mein Wert ist nicht mein Besitz.'
-    },
-    {
-      thought: '„Meine beste Freundin darf nur mit mir spielen.“',
-      story: 'Jonas beste Freundin spielt heute mit jemand anderem. Jona hat Angst, nicht mehr wichtig zu sein.',
-      choices: [
-        {text: '„Ich verbiete ihr, mit anderen zu spielen.“', feedback: 'Freundschaft ist kein Besitz. Verbote würden die Freundin unter Druck setzen.'},
-        {text: '„Ich darf traurig sein. Ich frage nach gemeinsamer Zeit und lasse ihr andere Freundschaften.“', good: true, feedback: 'Jona nimmt das eigene Gefühl ernst und achtet zugleich die Freiheit der Freundin. Beide dürfen mehrere Freundschaften haben.'},
-        {text: '„Dann mache ich die anderen heimlich schlecht.“', feedback: 'Gerüchte verletzen andere und helfen nicht beim Vertrauen. Wie könntest du deinen Wunsch offen sagen?'}
-      ],
-      support: 'Nähe wünschen, Freiheit lassen.'
-    },
-    {
-      thought: '„Ich muss immer mithalten.“',
-      story: 'Andere erzählen von tollen Ausflügen und teuren Sachen. Jona möchte dazugehören und fühlt sich unter Druck.',
-      choices: [
-        {text: '„Ich erfinde eine noch tollere Geschichte.“', feedback: 'Dann müsste Jona die Geschichte immer weiter aufrechterhalten. Das kann den Druck vergrößern.'},
-        {text: '„Ich darf nie wieder etwas schön finden, das andere haben.“', feedback: 'Du darfst etwas bewundern und dir etwas wünschen. Es geht nicht darum, Gefühle zu verbieten.'},
-        {text: '„Ich mache eine Vergleichspause und überlege: Was tut mir gut? Mit wem kann ich darüber reden?“', good: true, feedback: 'Jona plant eine Pause und ein Gespräch mit einer vertrauten Person. Dazugehören muss kein Wettbewerb sein.'}
-      ],
-      support: 'Pausen machen und Hilfe annehmen.'
-    }
-  ];
-
   // Brücke und Werkstatt: Jede Entscheidung zeigt ihre Folge.
   // Erst der bewusste Weiter-Klick führt zur nächsten Situation.
   function renderJourney(container, config, onSolved) {
@@ -200,60 +167,10 @@
     round(false);
   }
 
-  // Rucksack: Steine in beliebiger Reihenfolge untersuchen und durch
-  // hilfreiche Gedanken ersetzen. Gefühle werden nicht als Fehler gewertet.
-  function renderBackpack(container, onSolved) {
-    var solved = new Set(), finished = false;
-    var game = node('section', 'mini-game mini-backpack');
-    game.appendChild(node('h2', '', 'Der unsichtbare Rucksack'));
-    game.appendChild(node('p', 'mini-intro', 'Jona trägt drei schwere Gedanken mit sich. Neid, Angst und Traurigkeit dürfen da sein. Findet einen hilfreichen Umgang damit – Stein für Stein, in eurer Reihenfolge.'));
-    var visual = node('div', 'backpack-visual');visual.setAttribute('aria-hidden', 'true');
-    visual.appendChild(node('span', 'backpack-icon', '🎒'));
-    var pebbles = node('div', 'backpack-pebbles');visual.appendChild(pebbles);game.appendChild(visual);
-    var progress = node('p', 'mini-progress');game.appendChild(progress);
-    var stage = node('div', 'mini-stage');game.appendChild(stage);container.appendChild(game);
-    function refresh() {
-      progress.textContent = 'Erleichterte Gedanken: ' + solved.size + ' / ' + stones.length;
-      pebbles.replaceChildren();stones.forEach(function(stone,i) {pebbles.appendChild(node('span', solved.has(i) ? 'pebble lifted' : 'pebble', solved.has(i) ? '🌱' : '🪨'));});
-    }
-    function overview(focus) {
-      stage.replaceChildren();refresh();
-      var title = node('h3', '', solved.size === stones.length ? 'Der Rucksack ist leichter! 🌱' : 'Welchen Stein schaut ihr euch an?');stage.appendChild(title);
-      if (solved.size === stones.length) {
-        stage.appendChild(node('p', 'mini-story', 'Hilfreiche Gedanken können entlasten. Das heißt nicht, dass Neid oder Sorgen sofort verschwinden müssen. Ihr könnt darüber sprechen und Unterstützung suchen.'));
-        var list = node('ul', 'mini-recap');stones.forEach(function(s) {list.appendChild(node('li', '', s.support));});stage.appendChild(list);
-        stage.appendChild(node('p', 'mini-reflection', 'Zum Weiterdenken: Was macht Freundschaft wertvoll, auch wenn niemand etwas Neues oder Teures besitzt?'));
-        var complete = button('Station abschließen ✓', 'btn mint', function() {if(finished)return;finished=true;complete.disabled=true;onSolved();});stage.appendChild(complete);
-      } else {
-        var list = node('div', 'stone-list');
-        stones.forEach(function(stone,i) {
-          var b = button((solved.has(i) ? '🌱 ' : '🪨 ') + stone.thought, 'stone-button' + (solved.has(i) ? ' lifted' : ''), function() {if(!solved.has(i))openStone(i);});
-          b.disabled = solved.has(i);list.appendChild(b);
-        });stage.appendChild(list);
-      }
-      if(focus)focusHeading(title);
-    }
-    function openStone(i) {
-      var stone = stones[i], accepted = false;stage.replaceChildren();
-      var title = node('h3', '', stone.thought);stage.appendChild(title);stage.appendChild(node('p', 'mini-story', stone.story));
-      var options = node('div', 'options');stage.appendChild(options);
-      var feedback = node('p', 'mini-feedback');feedback.setAttribute('role','status');feedback.setAttribute('aria-live','polite');stage.appendChild(feedback);
-      var next = button('Zurück zum Rucksack →', 'btn sunshine mini-next', function() {overview(true);});next.hidden=true;stage.appendChild(next);
-      stone.choices.forEach(function(choice) {
-        var option=button(choice.text,'opt-btn',function() {
-          if(accepted)return;
-          feedback.textContent=(choice.good?'✓ ':'↻ ')+choice.feedback;feedback.classList.toggle('helpful',!!choice.good);
-          if(choice.good){accepted=true;solved.add(i);refresh();option.classList.add('correct');options.querySelectorAll('button').forEach(function(b){b.disabled=true;});next.hidden=false;next.focus({preventScroll:true});}
-          else option.classList.add('tried');
-        });options.appendChild(option);
-      });focusHeading(title);
-    }
-    overview(false);
-  }
   window.KapellenSpiele = {
     render: function(type, container, onSolved) {
       if(type === 'bridge')renderJourney(container,bridge,onSolved);
-      else if(type === 'backpack')renderBackpack(container,onSolved);
+      else if(type === 'backpack')window.WorryWalk.render(container,onSolved);
       else if(type === 'workshop')renderJourney(container,workshop,onSolved);
     }
   };

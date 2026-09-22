@@ -27,3 +27,10 @@ Die Seite speichert abgeschlossene Stationen lokal im jeweiligen Browser unter `
 
 ## Prüfung
 Die Bergprüfung wurde im Browser bis zu allen zehn Gravuren durchgespielt, einschließlich eines absichtlichen Fehlers mit Abzug von zwei Gravuren, erneutem Sammeln und gespeichertem Stationsabschluss nach Neuladen. Die Smartphoneansicht wurde bei 390 Pixeln Breite geprüft. Automatische Logikprüfungen decken doppelte Einträge, Untergrenze null, Abzug der letzten zwei Einträge und erneutes Vervollständigen ab. Der vollständige Ablauf aller anderen Stationen wurde für diese Änderung nicht erneut durchgespielt.
+
+## Neu: der Sorgenweg
+Der Rucksack ist jetzt eine illustrierte Szene mit Jona als bewegter Spielfigur in der Mitte und Ratgebenden an beiden Seiten. Start: drei Sorgen. Hilfreicher Rat: ein Stein weniger. Unpassender Rat: ein zusätzlicher Stein; die ungelöste Sorge kommt erneut vor. Ziel: null Sorgen und „Station abschließen“. Acht Situationen stehen zur Verfügung. Die Antwortseiten werden zufällig vertauscht. Die Bewegung lässt sich pausieren.
+
+Zusätzlich erforderlich: `backpack.js`, `backpack.css`, `assets/sorgenweg.png` und `assets/jona.png`. Der assets-Ordner enthält jetzt fünf Bilder. Beim Update bleiben andere Stationsabschlüsse erhalten; das neue Rucksackspiel muss neu abgeschlossen werden.
+
+Geprüft: Start mit drei Sorgen, Anstieg auf vier nach falschem Rat, Abbau bis null, Abschluss nach Neuladen sowie Darstellung bei 390 Pixeln Breite. Automatisch auch viele aufeinanderfolgende Fehler und vollständiger Abbau der zusätzlichen Lasten geprüft.

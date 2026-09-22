@@ -50,7 +50,7 @@
     {id:'doppel',icon:'🔢',label:'Das Zahlenschloss',flavor:'Ein kleines Schloss mit einer letzten Frage zum Doppelgebot.',steps:[{type:'keypad',prompt:function(){return 'Das Gebot heißt „DOPPELgebot der Liebe“. Aus wie vielen einzelnen Geboten besteht es? Gebt die Zahl ein.';},answer:function(){return 2;},help:'Ein Doppel... besteht aus wie vielen Teilen?'}]}
   ];
 
-  ROOM1_OBJECTS.push({id:'rucksack',icon:'🎒',label:'Der unsichtbare Rucksack',flavor:'Drei Gedanken wiegen schwer. Findet heraus, was entlasten kann, ohne Gefühle wegzuschieben.',steps:[{type:'backpack'}]});
+  ROOM1_OBJECTS.push({id:'sorgenweg',icon:'🎒',label:'Der unsichtbare Rucksack',flavor:'Drei Gedanken wiegen schwer. Findet heraus, was entlasten kann, ohne Gefühle wegzuschieben.',steps:[{type:'backpack'}]});
   ROOM2_OBJECTS.push({id:'bruecke',icon:'🌉',label:'Die Brücke der Nächstenliebe',flavor:'Zwischen euch und der anderen Seite fehlen drei Brückenstücke. Hilfreiche Entscheidungen schließen die Lücken.',steps:[{type:'bridge'}]});
   ROOM2_OBJECTS.push({id:'werkstatt',icon:'🛠️',label:'Die Versöhnungs-Werkstatt',flavor:'Ein Streit hat das Werkstattfenster zerbrochen. Mit einem fairen Gespräch und einer passenden Handlung könnt ihr es reparieren.',steps:[{type:'workshop'}]});
   ROOM1_HILFE += '<h4>Zum unsichtbaren Rucksack</h4><p>Neid und Traurigkeit sind Gefühle, keine Fehler. Du darfst dir etwas wünschen, ohne dich oder andere abzuwerten. Freundschaft ist kein Besitz. Vergleichspausen und Gespräche können helfen.</p>';
