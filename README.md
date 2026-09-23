@@ -1,29 +1,40 @@
-# Die Regenbogen-Kapelle – Adventure-Version 2
+# Die Regenbogen-Kapelle – Version 4
 
-## Auf GitHub aktualisieren
-ZIP entpacken. Den gesamten Inhalt (einschließlich des vollständigen Ordners `assets`) in das Hauptverzeichnis des bestehenden Repositorys hochladen und gleichnamige Dateien ersetzen. Nicht die ZIP selbst hochladen. Die bisherigen GitHub-Pages-Einstellungen und der Klassenlink bleiben gleich.
+Ein illustriertes Lernabenteuer für Klasse 5 über die Zehn Gebote und das Doppelgebot der Liebe. Ohne Installation, Konto oder Druckaufgaben.
 
-Bei einem neuen Repository: Settings → Pages → Deploy from a branch → main → /(root) → Save. Den dort angezeigten Webseitenlink mit der Klasse teilen.
+## Für GitHub
 
-## Änderungen
-- Sorgenweg: Die Figur steht dauerhaft still. Es gibt keinen Bewegungsschalter. Der Rucksack ändert weiterhin seine Größe entsprechend der Last.
-- Zwölf verschiedene Situationen werden zufällig gemischt. Vor Wiederholungen wird der gesamte Vorrat durchlaufen; auch zwischen zwei Durchläufen wiederholt sich keine Situation direkt.
-- Start mit drei Sorgen; hilfreicher Rat −1, unpassender Rat +1. Bei null Sorgen kann die Station abgeschlossen werden. Die erste richtige Antwortseite ist zufällig, danach wechseln die Seiten von Runde zu Runde.
-- Auch bei den Auswahlfragen wie der Schriftrolle ist die richtige Antwort nicht immer an erster Stelle. Nach einer richtigen Antwort wechselt ihre Position.
-- Prüfstein: „Vorbeiziehen lassen“ steht jetzt oben, direkt vor dem Himmel mit der Sprechblase. Richtige Gebote gravieren die Steintafeln, falsche Treffer entfernen die letzten zwei Gravuren.
-- Das alte Buch ist der erste, hervorgehobene Punkt in jedem Raum. Ein Schnellverweis öffnet es während jeder Übung über der laufenden Aufgabe. Auswahl und Fortschritt bleiben erhalten. Eine laufende Bergprüfung wird beim Nachschlagen pausiert.
-- Alle elf Stationen haben illustrierte Motive. Neun neue Szenen ergänzen Bergprüfung und Sorgenweg; passende Papier-, Stein-, Metall- und Holzgestaltung unterstützt die Aufgaben.
-- Erst nach allen elf Stationen erstrahlt das kaputte Kapellenfenster wieder. Keine Urkunde und keine Druckfunktion.
+ZIP entpacken. Den gesamten Inhalt mit dem vollständigen Ordner `assets` ins Hauptverzeichnis des Repositorys hochladen. Gleichnamige Dateien ersetzen; nicht die ZIP selbst hochladen. `index.html` muss direkt im veröffentlichten Ordner liegen. Bei einer bestehenden GitHub-Pages-Seite bleiben deren Einstellungen und Klassenlink erhalten.
+
+Für ein neues Repository GitHub Pages für den Branch mit diesen Dateien und den Hauptordner aktivieren. Den von GitHub Pages angezeigten Webseitenlink mit der Klasse teilen. Zum lokalen Ausprobieren `index.html` im Browser öffnen. Für zuverlässige Speicherung und Vollbild empfiehlt sich die veröffentlichte HTTPS-Seite.
+
+## Was sich geändert hat
+
+- Elf überarbeitete Stationen mit kurzen Schritten, verständlichen Erklärungen, Hinweisen und bewusstem Weiterklicken. Keine Zeitlimits.
+- Ganzes Abenteuer, Kurzweg mit sechs Stationen oder eigene Auswahl. Beide Räume sind frei zugänglich.
+- Das alte Buch steht zuerst und ist in jeder Übung erreichbar. Es trennt Bibelinhalt, historischen Kontext und Beispiele für heute. Lutherische Zählung wird ausdrücklich genannt.
+- Alle zehn Gebote an der Waage; neuntes und zehntes Gebot konsistent unterschieden. Tora, Befreiung aus Ägypten und jüdischer Kontext werden erklärt.
+- Sorgenweg: sechs unterschiedliche, zufällig ausgewählte Situationen aus zwölf; drei Ratschläge. Richtige Position wechselt ohne einfaches Links-rechts-Muster. Figur steht dauerhaft still. Start mit drei Laststeinen, höchstens fünf; nach sechs Situationen gibt es bei Bedarf eine begrenzte Unterstützungsrunde.
+- Prüfstein: zehn Aussagen in zufälliger Reihenfolge. Entdecken ohne Abzug oder Herausforderung mit zwei verlorenen Gravuren pro fehlerhafter Runde. Fehlende Gravuren werden am Ende ergänzt. Aussage, Entscheidung und Weiterknopf bleiben beieinander.
+- Karten sind deutlich markiert; Tafelfragmente, Brücke, Schloss und Werkstatt zeigen Fortschritt in der Szene. Warme illustrierte Adventure-Gestaltung bleibt erhalten.
+- Fenster erst nach allen elf Stationen vollständig repariert. Kurzwege erhalten ein eigenes Zwischenziel. Keine Urkunde und kein Drucken.
+- Vollbild, Tastaturbedienung, schmale Ansichten, Wiederholen abgeschlossener Stationen und Speicherung innerhalb laufender Aufgaben.
+
+## Spielstand und Datenschutz
+
+Die neue Aufgabenfolge beginnt mit einem neuen Spielstand. Alte V3-Abschlüsse werden nicht übernommen. V4 speichert lokal im jeweiligen Browser unter `regenbogen_kapelle_v6` (interne Datenversion 4). Es gibt keine Namen, Konten oder zentrale Ergebnisübermittlung. Ein Geräte- oder Browserwechsel übernimmt den Stand nicht. Private Browserfenster können ihn beim Schließen löschen.
+
+Die Schaltfläche oben rechts setzt nach Rückfrage den V4-Stand zurück. Bei gesperrtem Speicher erscheint ein Hinweis. Vollbild hängt vom Browser ab; der Knopf zeigt bei fehlender Unterstützung eine Alternative an.
 
 ## Dateien
-HTML: `index.html`.
-Stile: `styles.css`, `adventure.css`, `mountain.css`, `backpack.css`, `stations.css`.
-Spiel: `script.js`, `minigames.js`, `mountain.js`, `backpack.js`.
-Bilder: `assets/kapelle.png`, `assets/kapelle-kaputt.png`, `assets/berg.png`, `assets/sorgenweg.png`, `assets/jona.png`, `assets/stationen.png`.
-Außerdem `.nojekyll`, `README.md` und `DESIGN.md` mit Bildprompts. Kein Build, keine Installation und kein Backend nötig.
 
-## Spielstand
-Abgeschlossene Stationen werden nur im jeweiligen Browser unter `regenbogen_kapelle_v5` gespeichert. Vorhandene Abschlüsse dieser Stationen bleiben bei diesem Update erhalten. Angefangene Stationen werden beim Verlassen oder Neuladen neu begonnen. Über den Zurücksetzen-Knopf lässt sich neu starten. Keine Namen, Konten oder zentralen Ergebnislisten.
+- `index.html`: Einstieg und Grundstruktur.
+- `core.js`, `content.js`, `curriculum.js`, `script.js`: Spiellogik und Lerninhalte.
+- `fullscreen.js`: Vollbild.
+- Sechs CSS-Dateien: Gestaltung und responsive Ansichten.
+- `assets`: sechs Illustrationen.
+- `UNTERRICHT.md`: Unterrichtsplanung, Quellen und didaktische Hinweise.
+- `PRUEFUNG.md`: Prüfungen und verbleibende Grenzen.
+- `DESIGN.md`: Herkunft und Gestaltung der Illustrationen.
 
-## Geprüft
-Automatische Prüfungen: zwölf verschiedene Situationen pro Mischdurchlauf, zufällige Starts, wechselnde richtige Antwortseiten, Plus-/Minuspunkte und Untergrenze null. Browserprüfungen: ruhige Figur ohne Schalter, Seitenwechsel nach richtiger Antwort, altes Buch ohne Verlust einer ausgewählten Situationskarte, Steuerung über der Prüfstein-Sprechblase sowie Desktop- und Smartphoneansichten. Die vollständige Lösung aller elf Stationen wurde bei diesem Update nicht erneut durchgespielt.
+Kein Build, kein Backend, keine extern geladenen Schriftarten oder Bibliotheken. Quellenlinks öffnen externe Webseiten erst beim Anklicken.

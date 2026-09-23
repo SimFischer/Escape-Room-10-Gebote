@@ -1,55 +1,8 @@
 <!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Ein interaktiver Rätselraum für die 5. Klasse zu den Zehn Geboten und dem Doppelgebot der Liebe.">
-  <title>Die Regenbogen-Kapelle – Rätselraum</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="adventure.css">
-  <link rel="stylesheet" href="mountain.css">
-  <link rel="stylesheet" href="backpack.css">
-  <link rel="stylesheet" href="stations.css">
-  <script src="backpack.js" defer></script>
-  <script src="minigames.js" defer></script>
-  <script src="mountain.js" defer></script>
-  <script src="script.js" defer></script>
-</head>
-<body>
-<header class="adventure-header"><span class="adventure-brand"><span aria-hidden="true">✦</span> Die Regenbogen-Kapelle</span><span class="adventure-tag">Ein Abenteuer voller guter Ideen</span></header>
-<div class="blob blob1"></div><div class="blob blob2"></div><div class="blob blob3"></div><div class="blob blob4"></div>
-<div class="top-actions"><button class="icon-btn" id="resetBtn" title="Von vorne beginnen" aria-label="Spiel zurücksetzen">🔄</button></div>
-<main class="wrap">
-  <section class="screen active" id="screen-intro">
-    <div class="intro-copy">
-    <div class="title-block"><p class="kicker">✦ Euer Rätselabenteuer · Klasse 5</p><h1>Die Regenbogen-<br><span>Kapelle</span></h1></div>
-    <p class="story">Willkommen in der Regenbogen-Kapelle! ✨ Ihr großes Fenster ist zerbrochen und farblos. Löst alle elf Rätselstationen, um es zu reparieren und die Kapelle wieder zum Leuchten zu bringen. In jedem Raum gibt es eine <b>Hilfekarte 📖</b> zum Nachschlagen und mindestens ein Minispiel zum Mitmachen!</p>
-    <div class="center"><button class="btn sunshine" id="startBtn">Abenteuer starten <span aria-hidden="true">→</span></button></div>
-    <div class="adventure-facts"><span>2 geheimnisvolle Räume</span><span>11 Rätselstationen</span><span>Gemeinsam entdecken</span></div>
-    <footer class="credits">Themen: Die Zehn Gebote · Das Doppelgebot der Liebe</footer>
-    <noscript><p>Bitte aktiviere JavaScript in deinem Browser, damit du spielen kannst.</p></noscript>
-    </div>
-    <aside class="window-note"><div class="intro-hero" id="introWindowHolder"></div><div><strong>Bringt die Farben zurück!</strong><p>Erst nach allen elf Stationen erstrahlt das große Fenster.</p></div></aside>
-  </section>
-  <section class="screen" id="screen-game">
-    <div class="map-header">
-      <div class="map-window" id="gameWindowHolder"></div>
-      <nav class="room-nav" id="roomNav" aria-label="Rätselräume">
-        <button class="node active" data-room="1" data-accent="sunshine"><span class="dot">📜</span><span class="label">Zehn Gebote</span></button>
-        <div class="connector" id="conn1"></div>
-        <button class="node locked" data-room="2" data-accent="coral"><span class="dot">🔒</span><span class="label">Liebe</span></button>
-        <div class="connector" id="conn2"></div>
-        <button class="node locked" data-room="final" data-accent="violet"><span class="dot">🔒</span><span class="label">Kapelle</span></button>
-      </nav>
-    </div>
-    <p class="restoration-progress" data-progress role="status">0 / 11 Stationen geschafft</p><div class="card room-card" id="roomContent"></div>
-  </section>
-  <section class="screen" id="screen-finale">
-    <img class="finale-scene" src="assets/kapelle.png" alt="Das reparierte Fenster erstrahlt in allen Farben und taucht die Kapelle in warmes Licht."><div class="finale-hero" id="finaleWindowHolder"></div>
-    <div class="title-block"><h1>Die Kapelle erstrahlt! 🎉</h1></div>
-    <div class="message-card">Ihr habt alle elf Stationen geschafft und das zerbrochene Fenster repariert. Ihr habt die Zehn Gebote und das Doppelgebot der Liebe erkundet. Außerdem habt ihr Brücken der Nächstenliebe gebaut, einen unsichtbaren Rucksack erleichtert und in der Versöhnungs-Werkstatt ein faires Gespräch geführt. Nehmt eine eurer Ideen mit in den Alltag. Klasse gemacht!</div>
-    <div class="button-row"><button class="btn ghost" id="replayBtn">Nochmal spielen 🔄</button></div>
-  </section>
-</main>
-</body>
-</html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Die Regenbogen-Kapelle · Gemeinsam entdecken</title><meta name="description" content="Lernabenteuer für Klasse 5: Zehn Gebote, Nächstenliebe und hilfreiche Entscheidungen.">
+<link rel="stylesheet" href="styles.css?v=4"><link rel="stylesheet" href="adventure.css?v=4"><link rel="stylesheet" href="stations.css?v=4"><link rel="stylesheet" href="backpack.css?v=4"><link rel="stylesheet" href="mountain.css?v=4"><link rel="stylesheet" href="learning.css?v=4">
+<script src="core.js?v=4" defer></script><script src="content.js?v=4" defer></script><script src="curriculum.js?v=4" defer></script><script src="script.js?v=4" defer></script><script src="fullscreen.js?v=4" defer></script></head>
+<body><header class="adventure-header"><span class="adventure-brand">✦ Die Regenbogen-Kapelle</span><div class="top-actions"><button id="fullscreenBtn" class="icon-btn fullscreen-btn" type="button" aria-pressed="false">⛶ Vollbild</button><button id="resetBtn" class="icon-btn" type="button" aria-label="Spiel zurücksetzen">↺</button></div></header><p id="fullscreenStatus" class="fullscreen-status" role="status" hidden></p>
+<main class="wrap"><section id="intro" class="card intro-v4"><p class="kicker">Euer Lernabenteuer · Klasse 5</p><h1>Bringt die Farben<br>zurück!</h1><p>Das Fenster der Kapelle ist zerbrochen. Erkundet die Zehn Gebote und die Liebe zum Mitmenschen. Jede fertige Station bringt euch weiter.</p><p>Ihr könnt nachlesen, Fehler verbessern und jederzeit unterbrechen. Es geht um Verstehen, nicht um Schnelligkeit.</p><div class="button-row"><button id="startBtn" class="btn sunshine">Abenteuer starten →</button><button id="introRoute" class="btn ghost">Mit der Lehrkraft: Lernweg wählen</button></div><p>Elf Stationen, zwei frei zugängliche Räume. Das ganze Fenster leuchtet nach allen elf Stationen. Für eine Schulstunde gibt es einen Kurzweg mit eigenem Zwischenziel.</p><noscript>Bitte aktiviere JavaScript, um zu spielen.</noscript></section>
+<section id="game" hidden><nav class="map-header room-switch" aria-label="Räume und Lernweg"><button id="roomOne" class="btn ghost">📜 Zehn Gebote</button><button id="roomTwo" class="btn ghost">❤️ Liebe im Alltag</button><button id="routeBtn" class="btn ghost">Lernweg wählen</button><button id="finalBtn" class="btn ghost">Unser Stand</button></nav><p id="progress" class="restoration-progress" role="status"></p><div id="roomContent" class="card"></div></section>
+<section id="final" class="card" hidden><div id="finalContent"></div><button id="returnBtn" class="btn sunshine">Weiter entdecken →</button></section><p id="saveStatus" class="save-status" role="status"></p></main></body></html>

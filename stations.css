@@ -30,3 +30,10 @@
 @media(max-width:600px){.station-art{max-width:260px}.book-quick{font-size:.75rem}.book-dialog{padding:16px}.hotspot[data-station="buch"] .hotspot-label{font-size:1.1rem}.hotspot[data-station="buch"]::after{font-size:.72rem}.station-tools{top:6px}.hotspot-badge{right:3px;top:3px}}
 .hotspot[data-station="buch"]{min-height:112px}.hotspot-badge{right:4px;top:4px;z-index:1}
 .hotspot[data-station="ausgang"] .hotspot-icon{background-image:url('assets/kapelle-kaputt.png');background-size:350%;background-position:right 55%}
+/* Auswahl muss stärker sein als das stationsspezifische Papierdesign. */
+.detail-view .statement-card.selected{background:#c1eee5!important;border:4px solid #136c70!important;outline:3px solid #ffce61;outline-offset:3px;color:#163d3f;box-shadow:0 0 0 6px #ffffffa0;transform:translateX(3px)}
+.statement-card.selected::before{content:'✓ AUSGEWÄHLT · ';display:block;font-size:.75rem;letter-spacing:.04em;color:#145e61}
+.selection-notice{padding:12px 16px;background:#e1f3e8;border-left:4px solid #297879;border-radius:8px;font-weight:700;line-height:1.5}
+.mountain-toolbar{display:grid;grid-template-columns:1fr auto;align-items:center}.mountain-toolbar>strong{grid-column:1}.mountain-toolbar>button:not(:first-of-type){grid-column:1/-1;width:100%;min-height:52px}.mountain-feedback{min-height:0}.mountain-controls:empty{display:none}
+.top-actions{display:flex;gap:8px;align-items:center}.fullscreen-btn{width:auto!important;padding:8px 12px!important;font-size:.85rem!important;white-space:nowrap}.fullscreen-status{position:fixed;top:65px;right:16px;z-index:1000;max-width:min(90vw,400px);background:#fff4d4;border:2px solid #7b5f35;border-radius:10px;padding:14px;color:#46351f}html:fullscreen{overflow:auto;background:#244e4c}.adventure-header{padding-right:210px}
+@media(max-width:600px){.adventure-header{padding-right:160px;min-height:70px}.adventure-brand{font-size:.85rem}.top-actions{top:12px;right:8px}.fullscreen-btn{font-size:.7rem!important;padding:7px!important}.top-actions .icon-btn{width:34px;height:34px}}
