@@ -1,4 +1,4 @@
-# Die Regenbogen-Kapelle – Version 4.1
+# Die Regenbogen-Kapelle – Version 4.2
 
 Ein illustriertes Lernabenteuer für Klasse 5 über die Zehn Gebote und das Doppelgebot der Liebe. Ohne Installation, Konto oder Druckaufgaben.
 
@@ -42,3 +42,7 @@ Die Schaltfläche oben rechts setzt nach Rückfrage den V4-Stand zurück. Bei ge
 - `DESIGN.md`: Herkunft und Gestaltung der Illustrationen.
 
 Kein Build, kein Backend, keine extern geladenen Schriftarten oder Bibliotheken. Quellenlinks öffnen externe Webseiten erst beim Anklicken.
+
+## Layoutkorrektur 4.2
+
+Sprechblase am Sorgenweg oberhalb der Bildszene; keine Überlagerung der Gesichter. Gleichmäßig breite Stationskarten, zentrierte Überschrift und Einleitung. Auf schmalen Bildschirmen zwei Spalten und zentrierte letzte Einzelkarte. Spielstände aus V4 und V4.1 bleiben erhalten.

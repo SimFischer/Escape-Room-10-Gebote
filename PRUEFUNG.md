@@ -30,3 +30,7 @@ Dies ist eine technische und redaktionelle Prüfung, keine Unterrichtserprobung.
 ## Größenanpassung 4.1
 
 Nur Darstellung und Versionsverweise geändert, Spiellogik unverändert. Im Browser bei 1920×1080, 1366×768, 1024×768, 768×1024 und 390×844 geprüft: kein horizontaler Überlauf der Bergprüfung; Entscheidungsflächen mindestens 48 Pixel hoch. Bei Full HD beträgt die Spielkartenbreite rund 1791 Pixel, der Text der Aussage 27,6 Pixel. iPad-Hochformat nach Neuladen visuell geprüft. Dies sind Browseransichten in diesen Abmessungen, keine Tests auf physischer iPad-Hardware.
+
+## Layoutkorrektur 4.2
+
+Desktop visuell geprüft: Gesichter frei, Stationskarten gleichmäßig verteilt. Bei 768 Pixeln geprüft: Sprechblase außerhalb der Szene, kein horizontaler Überlauf, zwei gleich breite Kartenspalten und letzte Einzelkarte zentriert. JavaScript-Syntax geprüft.
