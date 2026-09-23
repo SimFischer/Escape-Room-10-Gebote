@@ -35,3 +35,7 @@ Prompt: Wide 16:9 hand-painted 2D cartoon point-and-click adventure game environ
 ## Überarbeitung Version 4
 
 Die bereits erzeugten Originalillustrationen werden weiterverwendet. Es wurden für V4 keine neuen Bilder generiert. Interaktive Tafelfragmente, Brückenbretter, Schlossriegel und Werkstattteile werden als HTML/CSS über die bestehenden Motive gelegt. Die Karten erhalten eine fest sichtbare Markierung. Die Figuren am Sorgenweg sind in ihrer Größe begrenzt und bewegen sich nicht. Auf schmalen Bildschirmen sichern zusätzliche Porträts die Sichtbarkeit beider Ratgeber. Der große Hintergrund wechselt erst nach allen elf abgeschlossenen Stationen.
+
+## Bonusspiele (Version 5)
+
+Keine neuen Bilddateien. Das Echo nutzt `berg.png` als Bühne; die Steine sind HTML/CSS mit dicken Tintenkonturen und unregelmäßigen Rundungen. Der Aufstieg zeichnet Felsvorsprünge, Felsbrocken, Steinmännchen und Tafeln per Canvas mit dunklen, unregelmäßigen Konturen und warmer Sandsteinpalette vor `berg.png`; die Spielfigur ist `jona.png`. Das Fensterpuzzle schneidet das Fenster aus `kapelle.png` aus; die Glaswerkstatt ist ein eigenes SVG-Rosettenfenster. Deponia diente weiterhin nur als Stilrichtung, es wurden keine Grafiken daraus übernommen.

@@ -1,4 +1,16 @@
-# Die Regenbogen-Kapelle – Version 4.2
+# Die Regenbogen-Kapelle – Version 5.0
+
+## Neu in Version 5.0: Die Schatzkammer mit drei Bonusspielen
+
+Ein neuer Menüknopf „🎁 Bonusspiele“ führt in die Schatzkammer. Die Spiele sind freiwillige Belohnungen ohne Zeitlimit und lassen sich jederzeit verlassen.
+
+- **Das Echo vom Sinai** (Merkspiel): Auf der Bergszene liegen zehn Steine mit Gebotssymbolen an zufälligen Plätzen. Das Echo ruft die Gebote in ihrer Reihenfolge – erst 1–2, dann 1–3 … bis 1–10. Die Kinder tippen die Folge nach und üben so nebenbei die Reihenfolge. Ruhiges oder flottes Tempo, Klang optional (standardmäßig aus), Hilfe-Leuchten nach zwei Fehlversuchen.
+- **Der Aufstieg zum Gipfel** (Jump-and-Run): Jona steigt auf Moses Spuren auf den Berg und sammelt zehn Tafelfragmente. Steuerung mit Pfeiltasten/Leertaste oder Touch-Tasten. Keine Leben: Wer abrutscht, startet am letzten Steinmännchen. Pause bei Tab-Wechsel.
+- **Das Kapellenfenster** (Puzzle & Glasmalerei): Das reparierte Fenster aus `kapelle.png` als 3×3-Puzzle, wahlweise „Tauschen“ (leicht) oder „Schieben“ (knifflig), optional mit Markierung richtiger Teile. Danach öffnet sich die Glaswerkstatt: ein Rosettenfenster mit 37 Scheiben frei ausmalen. Das Bild bleibt auf dem Gerät gespeichert.
+
+**Freischaltung:** Echo nach 2, Aufstieg nach 4 geschafften Stationen des gewählten Lernwegs, das Fenster, wenn der ganze Lernweg geschafft ist. Im Dialog „Lernweg wählen“ kann die Lehrkraft mit „Bonusspiele sofort freigeben“ alles öffnen.
+
+**Neue Dateien:** `bonus.js`, `bonus-echo.js`, `bonus-climb.js`, `bonus-window.js`, `bonus.css`. Geändert: `index.html` (Knopf und Einbindung) und `script.js` (kleine Schnittstelle, Lehrkraft-Freigabe, Knöpfe zur Schatzkammer). Keine neuen Bilder: Die Spiele nutzen `berg.png`, `kapelle.png` und `jona.png` und zeichnen alles Weitere mit Tintenkonturen im Stil der App. Spielstände aus V4 bleiben erhalten.
 
 Ein illustriertes Lernabenteuer für Klasse 5 über die Zehn Gebote und das Doppelgebot der Liebe. Ohne Installation, Konto oder Druckaufgaben.
 
