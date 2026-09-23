@@ -1,0 +1,59 @@
+/* V4.1: Lesefläche wächst mit dem Bildschirm, ohne CSS-Zoom oder feste Höhe. */
+html{font-size:clamp(18px,calc(12px + .625vw),28px)}
+.wrap{width:94%;max-width:1800px;padding:24px 0 48px}
+.exercise-card{width:100%;max-width:none;padding:clamp(18px,2vw,42px)}
+.intro-v4{max-width:65rem}
+.intro-v4 p{max-width:65ch}
+.exercise-intro,.question,.recap{max-width:76ch}
+.exercise h2{font-size:1.7rem}
+.exercise-intro{font-size:1rem}
+.exercise-toolbar .btn,.room-switch .btn{font-size:.9rem;min-height:48px}
+.round-count{font-size:.9rem}
+.opt-btn{font-size:1rem;line-height:1.5;min-height:52px;padding:.7rem 1rem}
+.feedback{font-size:1rem}
+.mountain-statement{font-size:1.15rem;padding:.8rem 1rem}
+.mountain-decisions .btn{font-size:1rem;min-height:52px;padding:.65rem 1rem}
+.compact-mountain{padding:clamp(14px,1.3vw,28px)}
+.compact-mountain .stone-tablets{gap:clamp(12px,1.5vw,32px);padding-top:1rem}
+.compact-mountain .stone-tablet{padding:1rem 1.2rem .6rem}
+.compact-mountain .engraved-list li{font-size:.95rem;min-height:2.6em;padding:.45em 0;line-height:1.45}
+.compact-mountain .engraved-list li.empty{font-size:.9rem;color:#514b3d}
+.selected-card{font-size:1.05rem}
+.learning-stage{min-height:clamp(160px,16vw,280px)}
+.stage-piece{font-size:.85rem;min-height:3rem}
+.station-meta,.station-state{font-size:.85rem}
+.save-status{font-size:.8rem}
+.book-dialog{width:min(92vw,60rem);max-width:60rem;max-height:88vh;font-size:1rem}
+.compact-worry .jona-speech{font-size:1rem}
+@media(min-width:1100px){
+ .worry-cast{min-height:260px}
+ .worry-cast .worry-walker{width:180px;height:250px}
+ .worry-cast .worry-bag{width:60px;height:82px}
+ .worry-cast .worry-bag:after{font-size:20px}
+}
+@media(min-width:1600px){
+ .worry-cast{min-height:310px}
+ .worry-cast .worry-walker{width:210px;height:290px}
+}
+@media(max-width:1099px) and (min-width:601px){
+ .wrap{width:95%}
+ .exercise-card{padding:20px}
+ .compact-mountain .engraved-list li{font-size:1rem}
+ .exercise-toolbar .btn{min-height:48px}
+}
+@media(max-width:600px){
+ html{font-size:18px}
+ .wrap{width:96%;padding:12px 0 28px}
+ .exercise-card{padding:12px}
+ .exercise h2{font-size:1.35rem}
+ .exercise-toolbar{gap:8px}
+ .exercise-toolbar .btn{font-size:.8rem;padding:8px 10px;min-height:44px}
+ .round-count{font-size:.8rem}
+ .mountain-statement{font-size:1rem}
+ .mountain-decisions .btn{min-width:0;font-size:.85rem;min-height:48px}
+ .compact-mountain{padding:10px}
+ .compact-mountain .stone-tablet{padding:16px 7px 8px}
+ .compact-mountain .engraved-list li,.compact-mountain .engraved-list li.empty{font-size:.8rem}
+ .compact-worry .jona-speech{font-size:.9rem}
+ .stage-piece{font-size:.75rem}
+}

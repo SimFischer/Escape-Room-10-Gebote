@@ -25,3 +25,8 @@ Elf Stationen, zehn Waagenkarten, zwölf Sorgen mit je drei Ratschlägen, zehn B
 ## Grenzen
 
 Dies ist eine technische und redaktionelle Prüfung, keine Unterrichtserprobung. Lesetempo, tatsächliche Bearbeitungsdauer und Wirkung der Ablenkantworten sollten mit der Klasse erprobt werden. Zeitangaben sind Schätzwerte. Keine vollständige Barrierefreiheitszertifizierung oder Prüfung aller Browser und Geräte. Fachliche Grundlagen und didaktische Hinweise stehen in UNTERRICHT.md.
+
+
+## Größenanpassung 4.1
+
+Nur Darstellung und Versionsverweise geändert, Spiellogik unverändert. Im Browser bei 1920×1080, 1366×768, 1024×768, 768×1024 und 390×844 geprüft: kein horizontaler Überlauf der Bergprüfung; Entscheidungsflächen mindestens 48 Pixel hoch. Bei Full HD beträgt die Spielkartenbreite rund 1791 Pixel, der Text der Aussage 27,6 Pixel. iPad-Hochformat nach Neuladen visuell geprüft. Dies sind Browseransichten in diesen Abmessungen, keine Tests auf physischer iPad-Hardware.

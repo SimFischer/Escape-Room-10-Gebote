@@ -1,4 +1,4 @@
-# Die Regenbogen-Kapelle – Version 4
+# Die Regenbogen-Kapelle – Version 4.1
 
 Ein illustriertes Lernabenteuer für Klasse 5 über die Zehn Gebote und das Doppelgebot der Liebe. Ohne Installation, Konto oder Druckaufgaben.
 
@@ -7,6 +7,10 @@ Ein illustriertes Lernabenteuer für Klasse 5 über die Zehn Gebote und das Dopp
 ZIP entpacken. Den gesamten Inhalt mit dem vollständigen Ordner `assets` ins Hauptverzeichnis des Repositorys hochladen. Gleichnamige Dateien ersetzen; nicht die ZIP selbst hochladen. `index.html` muss direkt im veröffentlichten Ordner liegen. Bei einer bestehenden GitHub-Pages-Seite bleiben deren Einstellungen und Klassenlink erhalten.
 
 Für ein neues Repository GitHub Pages für den Branch mit diesen Dateien und den Hauptordner aktivieren. Den von GitHub Pages angezeigten Webseitenlink mit der Klasse teilen. Zum lokalen Ausprobieren `index.html` im Browser öffnen. Für zuverlässige Speicherung und Vollbild empfiehlt sich die veröffentlichte HTTPS-Seite.
+
+## Bildschirmgrößen in Version 4.1
+
+Die Spielansicht nutzt etwa 94–95 % der verfügbaren Breite, bis maximal 1800 Pixel. Schrift, Antworten und Tafeln wachsen auf großen Bildschirmen mit. iPad-Ansichten behalten großzügige Schaltflächen. Die neue Datei `responsive.css` muss mit hochgeladen werden. Vorhandene Spielstände aus V4 bleiben erhalten; nur beim Wechsel von V3 beginnt die neue Aufgabenfolge mit einem neuen Stand.
 
 ## Was sich geändert hat
 
@@ -31,7 +35,7 @@ Die Schaltfläche oben rechts setzt nach Rückfrage den V4-Stand zurück. Bei ge
 - `index.html`: Einstieg und Grundstruktur.
 - `core.js`, `content.js`, `curriculum.js`, `script.js`: Spiellogik und Lerninhalte.
 - `fullscreen.js`: Vollbild.
-- Sechs CSS-Dateien: Gestaltung und responsive Ansichten.
+- Sieben CSS-Dateien: Gestaltung und responsive Ansichten.
 - `assets`: sechs Illustrationen.
 - `UNTERRICHT.md`: Unterrichtsplanung, Quellen und didaktische Hinweise.
 - `PRUEFUNG.md`: Prüfungen und verbleibende Grenzen.
