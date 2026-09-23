@@ -98,3 +98,38 @@
   .exercise[data-station] .exercise-body > .learning-stage{padding:0 14px 16px}
   .exercise[data-station] .question{margin-top:14px}
 }
+
+/* ---------- Sorgenweg: die ganze Kulisse zeigen ---------- */
+.exercise-body .compact-worry{container-type:inline-size;position:relative;aspect-ratio:1672/941;min-height:0!important;
+  width:min(100%,calc((100vh - 370px) * 1.778));min-width:min(100%,340px);margin:6px auto 18px;padding:0;
+  background:#b9d9d3 url('assets/sorgenweg.png') center/cover no-repeat;border:5px solid #6b644d;border-radius:22px;
+  box-shadow:6px 9px 0 #5a432a40,0 18px 40px #3a28182e}
+.exercise-body .compact-worry .jona-speech{position:absolute;z-index:4;top:3.5cqw;left:50%;transform:translateX(-50%);
+  width:min(62%,600px);margin:0;padding:1.4cqw 2cqw;box-sizing:border-box;font-size:clamp(.9rem,1.75cqw,1.25rem);
+  background:#fff9dff2;box-shadow:3px 5px 0 #57472d40,0 6px 18px #0002}
+.exercise-body .compact-worry .worry-cast{position:absolute;inset:0;display:block;padding:0;min-height:0;gap:0}
+.exercise-body .compact-worry .worry-cast .adviser-portrait{display:none}
+.exercise-body .compact-worry .worry-cast .worry-walker{position:absolute;left:50%;bottom:4%;margin:0;width:17cqw;max-width:none;height:25.5cqw;
+  translate:-50% 0}
+.exercise-body .compact-worry .worry-cast .jona-person{filter:drop-shadow(0 1cqw .4cqw #4838274d)}
+.exercise-body .compact-worry .worry-cast .worry-bag{width:6.2cqw;height:8.4cqw;left:4%;border-width:.3cqw;border-radius:2cqw 1.6cqw 1.4cqw 2cqw}
+.exercise-body .compact-worry .worry-cast .worry-bag:before{height:3.3cqw;left:.4cqw;right:.4cqw;bottom:.7cqw;border-width:.25cqw}
+.exercise-body .compact-worry .worry-cast .worry-bag:after{font-size:2.1cqw;bottom:1.2cqw}
+.exercise-body .compact-worry .worry-cast .worry-rocks{top:-1.7cqw}
+.exercise-body .compact-worry .worry-cast .worry-rock{width:2.1cqw;height:1.9cqw;margin:-.3cqw;border-width:.2cqw}
+/* Jona geht: sanftes Wippen im Schritt */
+@media(prefers-reduced-motion:no-preference){
+  .exercise-body .compact-worry .worry-walker > *{animation:jona-step .55s ease-in-out infinite alternate}
+}
+@keyframes jona-step{from{translate:0 0}to{translate:0 -2.5%}}
+/* Handy: Sprechblase oben im Bild, Kulisse etwas höher */
+@media(max-width:600px){
+  .exercise-body .compact-worry{aspect-ratio:4/3.4;width:100%;min-width:0;background-position:center bottom}
+  .exercise-body .compact-worry .jona-speech{top:10px;width:92%;padding:10px 12px;font-size:.9rem}
+  .exercise-body .compact-worry .worry-cast .worry-walker{width:24cqw;height:36cqw;bottom:3%}
+  .exercise-body .compact-worry .worry-cast .worry-bag{width:8.8cqw;height:12cqw}
+  .exercise-body .compact-worry .worry-cast .worry-bag:before{height:4.7cqw}
+  .exercise-body .compact-worry .worry-cast .worry-bag:after{font-size:3cqw;bottom:1.7cqw}
+  .exercise-body .compact-worry .worry-cast .worry-rock{width:3cqw;height:2.7cqw}
+  .exercise-body .compact-worry .worry-cast .worry-rocks{top:-2.4cqw}
+}
